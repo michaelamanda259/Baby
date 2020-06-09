@@ -17,13 +17,12 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputLayout name, userName, userPhoneNumber, userEmail, userPassword;
     Button regButton, loginButton;
 
-    FirebaseDatabase rootNode;
-    DatabaseReference reference;
+/*    FirebaseDatabase rootNode;
+    DatabaseReference reference;*/
 
     // Write a message to the database
-   /* FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("message");
-*/
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("user");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
         regButton = findViewById(R.id.btReg);
 */
         loginButton = findViewById(R.id.btLogin);
-
         //firebaseAuth = FirebaseAuth.getInstance();
-
-
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,7 +182,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             UserHelperClass helperClass = new UserHelperClass(Name, UserName, email, phone, password);
 
-            reference.child(phone).setValue(helperClass);
+            myRef.child(phone).setValue(helperClass);
 
 
     }
