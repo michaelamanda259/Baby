@@ -17,13 +17,12 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputLayout name, userName, userPhoneNumber, userEmail, userPassword;
     Button regButton, loginButton;
 
-    FirebaseDatabase rootNode;
-    DatabaseReference reference;
+   /* FirebaseDatabase rootNode;
+    DatabaseReference reference;*/
 
     // Write a message to the database
-   /* FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("message");
-*/
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("user");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Boolean validateUserName() {
         String val = userName.getEditText().getText().toString();
-        String noWhiteSpace= "(?=\\s+$)";
+        String noWhiteSpace= "\\A\\w{4,20}\\z";
 
         if (val.isEmpty()) {
             userName.setError("Field can not be empty");
@@ -97,17 +96,14 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Boolean validateEmail() {
         String val = userEmail.getEditText().getText().toString();
-        String emailPat="^[a-zA-Z0-9_+&*-]+(?:\\\\.\"+ \n" +
-                        "\"[a-zA-Z0-9_+&*-]+)*@\" + \n" +
-                        "\"(?:[a-zA-Z0-9-]+\\\\.)+[a-z\" + \n" +
-                        "\"A-Z]{2,7}$";
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
 
         if (val.isEmpty()) {
             userEmail.setError("Field can not be empty");
             return false;
         }
-        else if (!val.matches(emailPat))
+        else if (!val.matches(emailPattern))
         {
             userEmail.setError("Invalid email address");
             return false;
@@ -137,29 +133,22 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Boolean validatePassword() {
         String val = userPassword.getEditText().getText().toString();
-        String paawordVal = "^(?=.*[0-9])" +
-                            "(?=.*[a-z])" +
-                            "(?=.*[A-Z])" +
-                            "(?=.*[@#$%^&+=])" +
-                            "(?=\\s+$)." +
-                            "{8,}$";
+        String passwordVal = "^" +
+                //"(?=.*[0-9])" +         //at least 1 digit
+                //"(?=.*[a-z])" +         //at least 1 lower case letter
+                //"(?=.*[A-Z])" +         //at least 1 upper case letter
+                "(?=.*[a-zA-Z])" +      //any letter
+                "(?=.*[@#$%^&+=])" +    //at least 1 special character
+                "(?=\\S+$)" +           //no white spaces
+                ".{4,}" +               //at least 4 characters
+                "$";
 
-/*        Explanation:
-
-^                 # start-of-string
-                (?=.*[0-9])       # a digit must occur at least once
-                (?=.*[a-z])       # a lower case letter must occur at least once
-                (?=.*[A-Z])       # an upper case letter must occur at least once
-                (?=.*[@#$%^&+=])  # a special character must occur at least once
-                (?=\S+$)          # no whitespace allowed in the entire string
-                .{8,}             # anything, at least eight places though
-        $                 # end-of-string*/
 
         if (val.isEmpty()) {
             userPassword.setError("Field can not be empty");
             return false;
         }
-        else if (!val.matches(paawordVal))
+        else if (!val.matches(passwordVal))
         {
             userPassword.setError("Password is too weak");
             return false;
@@ -172,11 +161,9 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     }
-
     public void registerUser(View view) {
 
-        if (! validateName() | !validateUserName()  | !validateEmail() | !validatePassword() | !validatePhoneNumber()) {
-
+        if(!validateName() | !validatePassword() | !validatePhoneNumber() | !validateEmail() | !validateUserName()){
             return;
         }
             String Name = name.getEditText().getText().toString();
@@ -187,7 +174,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             UserHelperClass helperClass = new UserHelperClass(Name, UserName, email, phone, password);
 
-            reference.child(phone).setValue(helperClass);
+            myRef.child(phone).setValue(helperClass);
 
 
     }
