@@ -55,37 +55,35 @@ public class BottleFeedingActivity extends AppCompatActivity {
                 }
             }
         });
+
+    }
 //time
-        editTextTime.setOnClickListener(new View.OnClickListener() {
-            Calendar calendar = Calendar.getInstance();
-            int hourOfDay=calendar.get(Calendar.HOUR);
-            int minute=calendar.get(Calendar.MINUTE);
+    public void chooseTime(View view) {
 
+        Calendar calendar = Calendar.getInstance();
+        int hourOfDay=calendar.get(Calendar.HOUR);
+        int minute=calendar.get(Calendar.MINUTE);
+
+        timePickerDialog = new TimePickerDialog(BottleFeedingActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
-            public void onClick(View v) {
-                timePickerDialog = new TimePickerDialog(BottleFeedingActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-                        String am_pm;
-                        if (hourOfDay<12) {
-                            am_pm = "AM";
-                            editTextTime.setText(hourOfDay + ":" + minute + " " + am_pm);
-                        }
-                        else if (hourOfDay == 12){
-                            am_pm = "PM";
-                            editTextTime.setText(hourOfDay + ":" + minute + " " + am_pm);
+            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                String am_pm;
+                if (hourOfDay<12) {
+                    am_pm = "AM";
+                    editTextTime.setText(hourOfDay + ":" + minute + " " + am_pm);
+                }
+                else if (hourOfDay == 12){
+                    am_pm = "PM";
+                    editTextTime.setText(hourOfDay + ":" + minute + " " + am_pm);
 
-                        }
-                        else {
-                            am_pm = "PM";
-                            editTextTime.setText(hourOfDay + ":" + minute + " " + am_pm);
+                }
+                else {
+                    am_pm = "PM";
+                    editTextTime.setText(hourOfDay + ":" + minute + " " + am_pm);
 
-                        }
-                    }
-                },hourOfDay,minute,false);
-                timePickerDialog.show();
+                }
             }
-        });
-
+        },hourOfDay,minute,false);
+        timePickerDialog.show();
     }
 }

@@ -48,13 +48,25 @@ public class PumpingActivity extends AppCompatActivity {
 
             running=false;
         }
+
     }
 
     public void leftStopChronometer (View view){
-        chronometer_l.setBase(SystemClock.elapsedRealtime());
 
-        chronometer_t.setBase(chronometer_t.getBase() - pauseOffSetLeft);
-        pauseOffSetLeft = 0;
+            /*
+            chronometer_t.setBase(chronometer_t.getBase() - pauseOffSetLeft);
+*/
+        if (running){
+            chronometer_l.setBase(SystemClock.elapsedRealtime());
+            pauseOffSetLeft = 0;
+            chronometer_l.stop();
+
+            chronometer_t.stop();
+            pauseOffSetTotal = SystemClock.elapsedRealtime() - chronometer_t.getBase();
+
+            running = false;
+        }
+
     }
 
     public void rightStartChronometer (View view){
@@ -80,8 +92,33 @@ public class PumpingActivity extends AppCompatActivity {
     }
 
     public void rightStopChronometer (View view){
+
+        if (running){
+
+            chronometer_r.setBase(SystemClock.elapsedRealtime());
+            pauseOffSetRight = 0;
+            chronometer_r.stop();
+
+            chronometer_t.stop();
+            pauseOffSetTotal = SystemClock.elapsedRealtime() - chronometer_t.getBase();
+
+            running = false;
+
+        }
+
+    }
+
+    public void resetTotal(View view) {
+        chronometer_t.setBase(SystemClock.elapsedRealtime());
+        pauseOffSetTotal = 0;
+
         chronometer_r.setBase(SystemClock.elapsedRealtime());
         pauseOffSetRight = 0;
+
+        chronometer_l.setBase(SystemClock.elapsedRealtime());
+        pauseOffSetLeft = 0;
+
+        running = false;
     }
 
 }

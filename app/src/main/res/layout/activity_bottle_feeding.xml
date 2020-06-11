@@ -33,6 +33,7 @@
             android:src="@drawable/ic_done"/>
     </LinearLayout>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,13 +48,40 @@
             android:layout_height="wrap_content"
             android:text="Bottle Feeding"/>
 
-        <EditText
-            android:id="@+id/et_time"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:hint="Choose the time"
-            android:padding="10dp"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".1"
+                android:text="Date:"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".1"
+                android:text="Time:"/>
+
+            <EditText
+                android:id="@+id/et_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:hint="Choose the time"
+                android:onClick="chooseTime"
+                android:padding="10dp"/>
+
+        </LinearLayout>
+
+
+
 
         <RadioGroup
             android:id="@+id/rg_milkType"

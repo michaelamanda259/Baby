@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
 
-               /* Pair[] pairs = new Pair[7];
+                Pair[] pairs = new Pair[7];
 
                 pairs[0] = new Pair<View,String>(imageView, "logo_image");
                 pairs[1] = new Pair<View,String>(logoText, "logo_text");
@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                 pairs[6] = new Pair<View,String>(callSignUp, "tan_signup");
 
                 ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this,pairs);
-                startActivity(intent, options.toBundle());*/
+                startActivity(intent, options.toBundle());
 
                startActivity(intent);
             }
@@ -143,8 +143,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
-
-
+    public void forgetPassword(View view) {
+        Intent intent = new Intent(LoginActivity.this,Dashboard.class);
+        startActivity(intent);
+    }
 }
 
