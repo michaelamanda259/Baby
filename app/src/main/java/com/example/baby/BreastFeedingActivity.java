@@ -2,15 +2,19 @@ package com.example.baby;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.Chronometer;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 
 public class BreastFeedingActivity extends AppCompatActivity {
@@ -19,12 +23,14 @@ public class BreastFeedingActivity extends AppCompatActivity {
     private long pauseOffSetRight;
     private long pauseOffSetTotal;
 
-    EditText editTextTime;
+    EditText editTextTime,editTextDate;
     TimePickerDialog timePickerDialog;
 
 
 
     private boolean running;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,37 @@ public class BreastFeedingActivity extends AppCompatActivity {
         chronometer_r = findViewById(R.id.chronometer_right);
         chronometer_t = findViewById(R.id.chronometer_total);
         editTextTime = findViewById(R.id.et_time);
+        editTextDate = findViewById(R.id.et_date);
+
+        editTextDate.setText(getCurrentDate());
+
+        final Calendar myCalendar = Calendar.getInstance();
+
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, dayOfMonth);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+            private void updateLabel() {
+                String myFormat = "dd-MMM-yyyy"; //In which you need put here
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+                editTextDate.setText(sdf.format(myCalendar.getTime()));
+            }
+        };
+
+        editTextDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new DatePickerDialog(BreastFeedingActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
 
     }
@@ -160,5 +197,15 @@ public class BreastFeedingActivity extends AppCompatActivity {
         },hourOfDay,minute,false);
         timePickerDialog.show();
 
+    }
+    public String getCurrentDate(){
+        Calendar c = Calendar.getInstance();
+        System.out.println(c.getTime());
+
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String formattedDate = df.format(c.getTime());
+
+
+        return formattedDate;
     }
 }

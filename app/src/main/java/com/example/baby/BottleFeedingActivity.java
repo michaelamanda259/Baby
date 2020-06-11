@@ -11,25 +11,74 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.DatePicker;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
+
+import android.app.DatePickerDialog;
 
 public class BottleFeedingActivity extends AppCompatActivity {
-    EditText editTextTime,editTextMeasure;
+    EditText editTextTime,editTextMeasure,editTextDate;
     TimePickerDialog timePickerDialog;
     RadioGroup radioGroup;
     ImageButton buttonBack,buttonSubmit;
 
+public String getCurrentDate(){
+    Calendar c = Calendar.getInstance();
+    System.out.println(c.getTime());
+
+    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+    String formattedDate = df.format(c.getTime());
+
+
+    return formattedDate;
+}
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottle_feeding);
 
+        editTextDate = findViewById(R.id.et_date);
         editTextTime = findViewById(R.id.et_time);
         editTextMeasure = findViewById(R.id.et_measure);
         radioGroup = findViewById(R.id.rg_milkType);
         buttonBack = findViewById(R.id.cancel_button);
         buttonSubmit = findViewById(R.id.confirm_button);
+
+        editTextDate.setText(getCurrentDate());
+
+
+        final Calendar myCalendar = Calendar.getInstance();
+
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, dayOfMonth);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+            private void updateLabel() {
+                String myFormat = "dd-MMM-yyyy"; //In which you need put here
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+                editTextDate.setText(sdf.format(myCalendar.getTime()));
+            }
+        };
+
+        editTextDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new DatePickerDialog(BottleFeedingActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+
 
       //radio button
 
@@ -86,4 +135,8 @@ public class BottleFeedingActivity extends AppCompatActivity {
         },hourOfDay,minute,false);
         timePickerDialog.show();
     }
+
+
+
+
 }
