@@ -174,7 +174,9 @@ public class RegisterActivity extends AppCompatActivity {
 
             UserHelperClass helperClass = new UserHelperClass(Name, UserName, email, phone, password);
 
-            myRef.child(phone).setValue(helperClass);
+            myRef.child(UserName).setValue(helperClass);
+        Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+        startActivity(intent);
 
 
     }
