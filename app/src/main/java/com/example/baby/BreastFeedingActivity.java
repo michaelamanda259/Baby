@@ -43,6 +43,7 @@ public class BreastFeedingActivity extends AppCompatActivity {
         editTextTime = findViewById(R.id.et_time);
         editTextDate = findViewById(R.id.et_date);
 
+        //Calendar
         editTextDate.setText(getCurrentDate());
 
         final Calendar myCalendar = Calendar.getInstance();
