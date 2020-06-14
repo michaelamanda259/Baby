@@ -4,10 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Chronometer;
+import android.widget.EditText;
 
 public class PumpingActivity extends AppCompatActivity {
+    //Amount
+    EditText editTextLeft,editTextRight,editTextTotal;
+
+    //Chronometer
     Chronometer chronometer_l, chronometer_r, chronometer_t;
     private long pauseOffSetLeft;
     private long pauseOffSetRight;
@@ -18,14 +25,47 @@ public class PumpingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_breast_feeding);
+        setContentView(R.layout.activity_pumping);
+
+
+        editTextLeft = findViewById(R.id.et_measure_left);
+        editTextRight = findViewById(R.id.et_measure_right);
+        editTextTotal = findViewById(R.id.et_measure_total);
 
         chronometer_l = findViewById(R.id.chronometer_left);
         chronometer_r = findViewById(R.id.chronometer_right);
         chronometer_t = findViewById(R.id.chronometer_total);
 
 
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if (!editTextLeft.getText().toString().equals("")&& !editTextRight.getText().toString().equals("")){
+                    int temp1 = Integer.parseInt(editTextLeft.getText().toString());
+                    int temp2 = Integer.parseInt(editTextRight.getText().toString());
+                    editTextTotal.setText(String.valueOf(temp1+temp2));
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+
+            }
+        };
+        editTextLeft.addTextChangedListener(textWatcher);
+        editTextRight.addTextChangedListener(textWatcher);
+
     }
+
+
 
     public void leftStartChronometer (View view){
         if (!running){

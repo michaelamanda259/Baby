@@ -247,7 +247,9 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center"
+                android:background="@color/yellow"
                 android:text="Reset"
                 android:onClick="resetTotal"/>
 
@@ -260,8 +262,8 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
             android:background="#A7FFEB"
+            android:gravity="bottom"
             android:fontFamily="@font/cairo_semibold"
             android:shadowColor="@color/colorPrimaryDark"
             android:text="Enter Manually" />
