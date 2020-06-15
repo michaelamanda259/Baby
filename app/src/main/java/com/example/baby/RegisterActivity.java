@@ -1,28 +1,34 @@
 package com.example.baby;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
     TextInputLayout name, userName, userPhoneNumber, userEmail, userPassword;
     Button regButton, loginButton;
-
-   /* FirebaseDatabase rootNode;
-    DatabaseReference reference;*/
-
-    // Write a message to the database
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("user");
+    DatabaseHelper databaseHelper;
+    ParentModel parentModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,15 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
         userEmail = findViewById(R.id.etUserEmail);
         userPhoneNumber = findViewById(R.id.etPhoneNumber);
         userPassword = findViewById(R.id.etUserPassword);
-
-/*
-        regButton = findViewById(R.id.btReg);
-*/
         loginButton = findViewById(R.id.btLogin);
-
-        //firebaseAuth = FirebaseAuth.getInstance();
-
-
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,8 +47,8 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
             }
         });
-    }
 
+    }
 
     private Boolean validateName() {
         String val = name.getEditText().getText().toString();
@@ -96,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Boolean validateEmail() {
         String val = userEmail.getEditText().getText().toString();
-                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
 
         if (val.isEmpty()) {
@@ -161,24 +159,30 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     }
+
     public void registerUser(View view) {
 
         if(!validateName() | !validatePassword() | !validatePhoneNumber() | !validateEmail() | !validateUserName()){
             return;
         }
-            String Name = name.getEditText().getText().toString();
-            String UserName = userName.getEditText().getText().toString();
-            String email = userEmail.getEditText().getText().toString();
-            String phone = userPhoneNumber.getEditText().getText().toString();
-            String password = userPassword.getEditText().getText().toString();
+        String Name = name.getEditText().getText().toString();
+        String UserName = userName.getEditText().getText().toString();
+        String email = userEmail.getEditText().getText().toString();
+        int phone = Integer.parseInt(userPhoneNumber.getEditText().getText().toString());
+        String password = userPassword.getEditText().getText().toString();
+        ParentModel parentModel;
 
-            UserHelperClass helperClass = new UserHelperClass(Name, UserName, email, phone, password);
+        try {
+            parentModel = new ParentModel(Name,UserName,email,phone,password);
+            Toast.makeText(RegisterActivity.this,"Registered", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            parentModel = new ParentModel("Error","Error","Error",0,"Error");
+        }
 
-            myRef.child(UserName).setValue(helperClass);
-        Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
-        startActivity(intent);
-
-
+        DatabaseHelper databaseHelper  = new DatabaseHelper(RegisterActivity.this);
+        boolean success = databaseHelper.add(parentModel);
+        Toast.makeText(RegisterActivity.this,"Success"+ success, Toast.LENGTH_SHORT).show();
     }
 
 }
+

@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+    DatabaseHelper myDB;
 
     private static int SPLASH_SCREEN = 4000;
 

@@ -26,6 +26,7 @@
         ImageView imageView;
         TextView logoText, sloganText;
         TextInputLayout username,password;
+        DatabaseHelper db  = new DatabaseHelper(LoginActivity.this);;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -101,35 +102,16 @@
             final String userEnteredUsername = username.getEditText().getText().toString().trim();
             final String userEnteredPassword = password.getEditText().getText().toString().trim();
 
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("user");
-            Query checkUser = reference.orderByChild("username").equalTo(userEnteredUsername);
-            checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            if (db.find(userEnteredUsername, userEnteredPassword))
+            {
+                Intent intent = new Intent(LoginActivity.this,Dashboard.class);
+                startActivity(intent);
 
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                   if (dataSnapshot.exists()) {
-                       String passwordFromDB = dataSnapshot.child(userEnteredUsername).child("password").getValue(String.class);
-                       if (passwordFromDB.matches(userEnteredPassword)) {
-                           Intent intent = new Intent(LoginActivity.this,Dashboard.class);
-                           startActivity(intent);
-                       }
-                       else {//if (!passwordFromDB.matches(userEnteredPassword)){
-                            password.setError("Wrong Password");
-                            password.requestFocus();
-                        }
-                    }
-                   else {
-                        username.setError("No such User exist");
-                        username.requestFocus();
-                    }
-                }
-
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) { }
-
-
-            });
+            }
+            else
+            {
+                Toast.makeText(LoginActivity.this,"Login Failed... Try again !",Toast.LENGTH_LONG).show();
+            }
         }
 
 
