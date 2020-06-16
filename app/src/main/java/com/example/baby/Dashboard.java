@@ -41,7 +41,7 @@ public class  Dashboard extends AppCompatActivity implements View.OnClickListene
 
         switch (v.getId()) {
             case R.id.feeding_card:
-                i = new Intent(this, BreastFeedingActivity.class);
+                i = new Intent(this, popFeeding.class);
                 startActivity(i);
                 break;
 

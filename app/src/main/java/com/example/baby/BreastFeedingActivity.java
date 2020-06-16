@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
@@ -25,6 +27,7 @@ public class BreastFeedingActivity extends AppCompatActivity {
 
     EditText editTextTime,editTextDate;
     TimePickerDialog timePickerDialog;
+    ImageButton buttonBack,buttonSubmit;
 
 
 
@@ -42,10 +45,20 @@ public class BreastFeedingActivity extends AppCompatActivity {
         chronometer_t = findViewById(R.id.chronometer_total);
         editTextTime = findViewById(R.id.et_time);
         editTextDate = findViewById(R.id.et_date);
+        buttonBack = findViewById(R.id.cancel_button);
+        buttonSubmit = findViewById(R.id.confirm_button);
+
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BreastFeedingActivity.this,Dashboard.class);
+                startActivity(intent);
+            }
+        });
+
 
         //Calendar
         editTextDate.setText(getCurrentDate());
-
         final Calendar myCalendar = Calendar.getInstance();
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {

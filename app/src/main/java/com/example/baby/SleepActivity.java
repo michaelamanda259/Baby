@@ -3,11 +3,13 @@ package com.example.baby;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
@@ -19,6 +21,8 @@ public class SleepActivity extends AppCompatActivity {
     EditText etTimeEnd;
     EditText etTimeTotal;
     TimePickerDialog timePickerDialog;
+    ImageButton buttonBack,buttonSubmit;
+
 
 
     @Override
@@ -30,6 +34,16 @@ public class SleepActivity extends AppCompatActivity {
         etTimeEnd = findViewById(R.id.et_time_end);
         etTimeTotal = findViewById(R.id.et_time_total);
 
+        buttonBack = findViewById(R.id.cancel_button);
+        buttonSubmit = findViewById(R.id.confirm_button);
+
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SleepActivity.this,Dashboard.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

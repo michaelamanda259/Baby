@@ -2,6 +2,7 @@ package com.example.baby;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.text.Editable;
@@ -9,10 +10,13 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 public class PumpingActivity extends AppCompatActivity {
     //Amount
     EditText editTextLeft,editTextRight,editTextTotal;
+    ImageButton buttonBack,buttonSubmit;
+
 
     //Chronometer
     Chronometer chronometer_l, chronometer_r, chronometer_t;
@@ -35,6 +39,18 @@ public class PumpingActivity extends AppCompatActivity {
         chronometer_l = findViewById(R.id.chronometer_left);
         chronometer_r = findViewById(R.id.chronometer_right);
         chronometer_t = findViewById(R.id.chronometer_total);
+
+        buttonBack = findViewById(R.id.cancel_button);
+        buttonSubmit = findViewById(R.id.confirm_button);
+
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PumpingActivity.this,Dashboard.class);
+                startActivity(intent);
+            }
+        });
+
 
 
         TextWatcher textWatcher = new TextWatcher() {
