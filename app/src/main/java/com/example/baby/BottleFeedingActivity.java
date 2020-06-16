@@ -33,7 +33,6 @@ public String getCurrentDate(){
     SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
     String formattedDate = df.format(c.getTime());
 
-
     return formattedDate;
 }
     @Override
@@ -85,8 +84,6 @@ public String getCurrentDate(){
             }
         });
 
-
-
       //radio button
 
       radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -95,7 +92,6 @@ public String getCurrentDate(){
               RadioButton radioButton = (RadioButton)group.findViewById(checkedId);
           }
       });
-
 
         //submit button
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
@@ -142,8 +138,5 @@ public String getCurrentDate(){
         },hourOfDay,minute,false);
         timePickerDialog.show();
     }
-
-
-
 
 }

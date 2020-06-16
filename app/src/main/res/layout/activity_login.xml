@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/bg_color"
+    android:orientation="vertical"
     android:padding="20dp"
     tools:context=".LoginActivity">
 
@@ -30,8 +30,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign in to Continue"
-        android:transitionName="logo_text2"
         android:textSize="20sp"
+        android:transitionName="logo_text2"
         app:fontFamily="sans-serif-condensed-light" />
 
     <LinearLayout
@@ -42,58 +42,63 @@
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/etUsername"
-            android:hint="Username"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-        <com.google.android.material.textfield.TextInputEditText
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:transitionName="tan_text1" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/etPassword"
-            android:hint="Password"
-            android:transitionName="tan_text2"
-        app:passwordToggleEnabled="true"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            android:hint="Username">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:transitionName="tan_phone"
-                android:inputType="textPassword"/>
+                android:transitionName="tan_text1" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etPassword"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:transitionName="tan_text2"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:transitionName="tan_phone" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/cb_remember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remember Me"/>
         <Button
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_margin="5dp"
             android:background="#00000000"
-            android:onClick="forgetPassword"
-            android:transitionName="tan_forgetpass"
             android:elevation="0dp"
-            android:text="Forget Password?" />
+            android:onClick="forgetPassword"
+            android:text="Forget Password?"
+            android:transitionName="tan_forgetpass" />
 
         <Button
             android:id="@+id/login_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="GO"
-            android:onClick="loginUser"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
 
             android:background="#000"
+            android:onClick="loginUser"
+            android:text="GO"
             android:textColor="#fff"
-            android:transitionName="tan_go"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+            android:transitionName="tan_go" />
 
         <Button
             android:id="@+id/btn_sign_up"
@@ -102,9 +107,9 @@
             android:layout_gravity="right"
             android:layout_margin="5dp"
             android:background="#00000000"
-            android:transitionName="tan_signup"
             android:text="New User? SIGN UP"
-            android:textColor="#000"/>
+            android:textColor="#000"
+            android:transitionName="tan_signup" />
 
     </LinearLayout>
 

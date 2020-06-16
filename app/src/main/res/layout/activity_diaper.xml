@@ -59,9 +59,11 @@
                 android:text="Date:"/>
 
             <EditText
+                android:id="@+id/et_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:focusable="false"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,9 +71,14 @@
                 android:text="Time:"/>
 
             <EditText
+                android:id="@+id/et_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_marginTop="2dp"
+                android:hint="Choose the time"
+                android:onClick="chooseTime"
+                android:focusable="false"
+                android:padding="10dp"/>
 
         </LinearLayout>
 
