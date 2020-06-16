@@ -109,19 +109,15 @@
                 <androidx.appcompat.widget.AppCompatRadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Wet"/>
+                    android:text="Pee"/>
                 <androidx.appcompat.widget.AppCompatRadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Dirty"/>
+                    android:text="Poo"/>
                 <androidx.appcompat.widget.AppCompatRadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Mixed"/>
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Dry"/>
+                    android:text="Both"/>
             </RadioGroup>
 
         </LinearLayout>

@@ -32,7 +32,7 @@
         TextInputLayout username,password;
         CheckBox remember;
 
-
+        DatabaseHelper db  = new DatabaseHelper(LoginActivity.this);
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -118,62 +118,24 @@
             }
         }
 
+
         private void isUser() {
             final String userEnteredUsername = username.getEditText().getText().toString().trim();
             final String userEnteredPassword = password.getEditText().getText().toString().trim();
 
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("user");
-            Query checkUser = reference.orderByChild("username").equalTo(userEnteredUsername);
-            checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            if (db.login(userEnteredUsername, userEnteredPassword))
+            {
+                Intent intent = new Intent(LoginActivity.this,Dashboard.class);
+                startActivity(intent);
 
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                   if (dataSnapshot.exists()) {
-                       String passwordFromDB = dataSnapshot.child(userEnteredUsername).child("password").getValue(String.class);
-                       if (passwordFromDB.matches(userEnteredPassword)) {
-                           Intent intent = new Intent(LoginActivity.this,Dashboard.class);
-                           startActivity(intent);
-                       }
-                       else {//if (!passwordFromDB.matches(userEnteredPassword)){
-                            password.setError("Wrong Password");
-                            password.requestFocus();
-                        }
-                    }
-                   else {
-                        username.setError("No such User exist");
-                        username.requestFocus();
-                    }
-                }
-
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) { }
-
-
-            });
-
-            remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (buttonView.isChecked()){
-
-                        SharedPreferences preferences = getSharedPreferences("checkbox",MODE_PRIVATE);
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString("remember","true");
-                        editor.apply();
-                        Toast.makeText(LoginActivity.this, "checked", Toast.LENGTH_SHORT).show();
-
-                    }else if (!buttonView.isChecked()){
-                        SharedPreferences preferences = getSharedPreferences("checkbox",MODE_PRIVATE);
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString("remember","false");
-                        editor.apply();
-                        Toast.makeText(LoginActivity.this, "Unchecked", Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-            });
+            }
+            else
+            {
+                Toast.makeText(LoginActivity.this,"Login Failed... Try again !",Toast.LENGTH_LONG).show();
+            }
         }
+
+
 
 
         public void forgetPassword(View view) {

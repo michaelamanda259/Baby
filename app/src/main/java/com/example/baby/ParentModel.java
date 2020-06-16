@@ -1,5 +1,7 @@
 package com.example.baby;
-
+/*
+CREATE TABLE IF NOT EXISTS " + PARENT + "(" + NAME + " text , " + USERNAME + " text , " + EMAIL + " text , " + PHONE + " INTEGER  PRIMARY KEY, " + PASSWORD + " text)";
+*/
 public class ParentModel {
 
     private String name, username, email, password;
@@ -17,8 +19,6 @@ public class ParentModel {
     }
 
     //toString
-
-
     @Override
     public String toString() {
         return "ParentModel{" +
