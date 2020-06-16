@@ -3,6 +3,7 @@ package com.example.baby;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -47,9 +48,15 @@ public String getCurrentDate(){
         buttonBack = findViewById(R.id.cancel_button);
         buttonSubmit = findViewById(R.id.confirm_button);
 
+        buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BottleFeedingActivity.this,Dashboard.class);
+                startActivity(intent);
+            }
+        });
+
         editTextDate.setText(getCurrentDate());
-
-
         final Calendar myCalendar = Calendar.getInstance();
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
