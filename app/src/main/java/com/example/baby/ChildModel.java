@@ -47,13 +47,12 @@ public class ChildModel {
     private String name,gender,blood_group;
     private int child_id, DOB,phone;
 
-    public ChildModel(String name, String gender, String blood_group, int child_id, int DOB, int phone) {
+    public ChildModel(String name, String gender, String blood_group, int DOB /*,int phone*/) {
         this.name = name;
         this.gender = gender;
         this.blood_group = blood_group;
-        this.child_id = child_id;
         this.DOB = DOB;
-        this.phone = phone;
+       // this.phone = phone;
     }
 
     public ChildModel() {
