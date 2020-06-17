@@ -16,6 +16,7 @@ public class SetBabyDetail extends AppCompatActivity {
     TextInputLayout name, DOB, bloodgroup;
     RadioGroup gender ;
     ImageButton confirm;
+    DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,23 +89,23 @@ public class SetBabyDetail extends AppCompatActivity {
 
     public void registerChild(View view) {
 
-        if(!validateName() | !validateDOB() | !validateBloodgroup()){
+            if(!validateName() | /*!validateDOB() |*/ !validateBloodgroup()){
             return;
         }
-        String Name = name.getEditText().getText().toString();
+        String Name = name.getEditText().getText().toString();/*
         int DOBs =  Integer.parseInt(DOB.getEditText().getText().toString());
-        String Gender = Integer.toString(gender.getCheckedRadioButtonId());
+        String Gender = Integer.toString(gender.getCheckedRadioButtonId());*/
         String Bloodgroup = bloodgroup.getEditText().getText().toString();
         ChildModel childModel;
 
         try {
-            childModel = new ChildModel(Name,Gender,Bloodgroup,DOBs);
-            Toast.makeText(SetBabyDetail.this,"Registered", Toast.LENGTH_SHORT).show();
+            childModel = new ChildModel(Name,Bloodgroup);
+            Toast.makeText(SetBabyDetail.this,"Registered  "+childModel, Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
-            childModel = new ChildModel("Error","Error","Error",0);
+            childModel = new ChildModel("Error","Error");
         }
 
-        DatabaseHelper databaseHelper  = new DatabaseHelper(SetBabyDetail.this);
+        databaseHelper  = new DatabaseHelper(SetBabyDetail.this);
         boolean success = databaseHelper.addChild(childModel);
         Toast.makeText(SetBabyDetail.this,"Success"+ success, Toast.LENGTH_SHORT).show();
     }

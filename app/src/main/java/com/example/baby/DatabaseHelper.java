@@ -24,7 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String PASSWORD = "password";
 
 //Child variables
-    private static final String CHILD = "Child";
+    private static final String CHILD = "child";
     public static final String CHILD_ID = "child_id";
     public static final String CHILD_NAME = "child_name";
     public static final String GENDER = "gender";
@@ -67,54 +67,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String parentTable = "CREATE TABLE IF NOT EXISTS " + PARENT + "  " +
                 "(" + NAME + " " + TEXT + " , " + USERNAME + " " + TEXT + " , " + EMAIL + " " + TEXT + " , " + PHONE + " INTEGER  PRIMARY KEY, " + PASSWORD + " " + TEXT + ")";
 
-        String childTable = "CREATE TABLE IF NOT EXISTS " + CHILD +
-                "(child_id	INTEGER PRIMARY KEY AUTOINCREMENT, " + CHILD_NAME + " TEXT, " + GENDER + " TEXT, " + DOB + " NUMERIC, " + BLOOD_GROUP + " TEXT," + PHONE +" INTEGER ," +
-                "FOREIGN KEY("+ PHONE +") REFERENCES " + PARENT +"("+ PHONE +") ON DELETE CASCADE)";
+        String childTable = "CREATE TABLE IF NOT EXISTS child " +
+                "(child_id	INTEGER PRIMARY KEY AUTOINCREMENT, child_name TEXT, gender TEXT, DOB NUMERIC, bloodgroup TEXT,phone INTEGER ," +
+                "FOREIGN KEY(phone) REFERENCES " + PARENT +"(phone) )";
 
-      /*  String diaper = " CREATE TABLE IF NOT EXISTS  " + DIAPER +
-                "(" + DIAPER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + CHANGE_TIME + " NUMERIC," + DATE + " NUMERIC," + STATUS + " TEXT, "+ CHILD_ID +" INTEGER, " +
-                "FOREIGN KEY("+CHILD_ID+") REFERENCES " + CHILD + "("+CHILD_ID+") ON DELETE CASCADE)";
-
-
-        String feeding = "CREATE TABLE IF NOT EXISTS " + FEEDING +
-                "(feeding_id INTEGER PRIMARY KEY AUTOINCREMENT, child_id INTEGER, " + START_TIME + " NUMERIC, " + END_TIME + " NUMERIC, " + DATE + " NUMERIC, " +
-                "FOREIGN KEY("+CHILD_ID+") REFERENCES " + CHILD + "("+CHILD_ID+") ON DELETE CASCADE)";
+        String diaper = " CREATE TABLE IF NOT EXISTS  diaper"+
+                "(diaper_id INTEGER PRIMARY KEY AUTOINCREMENT,change_time NUMERIC,date NUMERIC,status TEXT, child_id INTEGER, " +
+                "FOREIGN KEY(child_id) REFERENCES child(child_id))";
 
 
-        String medication = "CREATE TABLE IF NOT EXISTS " + MEDICATION +
-                "(" + MEDICATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + DATE + " NUMERIC, " + DOSAGE + " INTEGER, " + MEDNAME + " TEXT, " +
-                "FOREIGN KEY("+CHILD_ID+") REFERENCES " + CHILD + "("+CHILD_ID+") ON DELETE CASCADE)";
+        String feeding = "CREATE TABLE IF NOT EXISTS feeding" +
+                "(feeding_id INTEGER PRIMARY KEY AUTOINCREMENT, child_id INTEGER, start_time NUMERIC, end_time NUMERIC, date NUMERIC, " +
+                "FOREIGN KEY(child_id) REFERENCES child (child_id))";
 
 
-        String notes = "CREATE TABLE IF NOT EXISTS " + NOTES +
+        String medication = "CREATE TABLE IF NOT EXISTS medication" +
+                "(medication_id INTEGER PRIMARY KEY AUTOINCREMENT, date NUMERIC, dosage INTEGER, med_name TEXT, " +
+                "FOREIGN KEY(child_id) REFERENCES child(child_id))";
+
+
+        String notes = "CREATE TABLE IF NOT EXISTS notes" +
                 "(" + NOTE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TEXT + " TEXT NOT NULL, "+ PHONE + " INTEGER," +
-                "FOREIGN KEY("+ PHONE +") REFERENCES " + PARENT +"("+ PHONE +") ON DELETE CASCADE)";
+                "FOREIGN KEY(phone) REFERENCES " + PARENT +"(phone))";
 
 
-        String pumping = " CREATE TABLE IF NOT EXISTS  " + PUMPING +
-                "(" + PUMPING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TOTAL_QUANTITY + " INTEGER, " + DATE + " NUMERIC, " +
-                START_TIME + " NUMERIC, " + END_TIME + " NUMERIC, " + LEFT_QUANTITY + " INTEGER, " + RIGHT_QUANTITY + " INTEGER, "+ PHONE + " INTEGER," +
-                "FOREIGN KEY("+ PHONE +") REFERENCES " + PARENT +"("+ PHONE +") ON DELETE CASCADE)";
+        String pumping = " CREATE TABLE IF NOT EXISTS pumping" +
+                "(pumping_id INTEGER PRIMARY KEY AUTOINCREMENT, total_quantity INTEGER, date NUMERIC, " +
+                "start_time NUMERIC, end_time NUMERIC, left_quantity INTEGER, right_quantity INTEGER, "+ PHONE + " INTEGER," +
+                "FOREIGN KEY(phone) REFERENCES " + PARENT +"(phone))";
 
-        String sleep = " CREATE TABLE IF NOT EXISTS " + SLEEP +
-                "(" + SLEEP_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + DATE + " NUMERIC," + START_TIME + " NUMERIC," + END_TIME + " NUMERIC, "+ CHILD_ID +" INTEGER," +
-                "FOREIGN KEY("+ CHILD_ID +") REFERENCES " + CHILD + "("+CHILD_ID+") ON DELETE CASCADE)";
-*/
+        String sleep = " CREATE TABLE IF NOT EXISTS sleep" +
+                "(sleep_id INTEGER PRIMARY KEY AUTOINCREMENT, date NUMERIC,start_time NUMERIC, end_time NUMERIC, child_id INTEGER," +
+                "FOREIGN KEY(child_id) REFERENCES child (child_id))";
+
         db.execSQL(parentTable);
         db.execSQL(childTable);
-       /* db.execSQL(diaper);
+        db.execSQL(diaper);
         db.execSQL(feeding);
         db.execSQL(medication);
         db.execSQL(notes);
         db.execSQL(pumping);
-        db.execSQL(sleep);*/
+        db.execSQL(sleep);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String parentTable = "DROP TABLE IF EXISTS parentTable";
         String childTable = "DROP TABLE IF EXISTS childTable";
-      /*  String diaper = "DROP TABLE IF EXISTS diaper";
+        String diaper = "DROP TABLE IF EXISTS diaper";
         String feeding = "DROP TABLE IF EXISTS feeding";
         String medication = "DROP TABLE IF EXISTS medication";
         String notes = "DROP TABLE IF EXISTS notes";
@@ -129,7 +129,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(notes);
         db.execSQL(pumping);
         db.execSQL(sleep);
-*/
+
+        onCreate(db);
     }
 
     public boolean addParent(ParentModel parentModel){
@@ -152,9 +153,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(CHILD_NAME,childModel.getName());
-        cv.put(DOB,childModel.getDOB());
-        cv.put(GENDER,childModel.getGender());
+        cv.put(DOB,0);
+        cv.put(GENDER,"");
         cv.put(BLOOD_GROUP,childModel.getBlood_group());
+        cv.put(PHONE,123);
 
         long insert = db.insert(CHILD,null,cv);
         if (insert == -1) return false;
