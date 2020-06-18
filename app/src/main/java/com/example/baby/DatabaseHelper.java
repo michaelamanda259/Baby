@@ -29,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String CHILD_NAME = "child_name";
     public static final String GENDER = "gender";
     public static final String DOB = "DOB";
-    public static final String BLOOD_GROUP = "blood_group";
+    public static final String BLOODGROUP = "bloodgroup";
 
 //Diaper variables
     public static final String DIAPER_ID = "diaper_id";
@@ -56,82 +56,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 //sleep variables
     public static final String SLEEP_ID = "sleep_id";
+    public static final int VERSION = 1;
 
 
     public DatabaseHelper(@Nullable Context context) {
-        super(context, DATABASE_NAME, null , 1);
+        super(context, DATABASE_NAME, null , VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String parentTable = "CREATE TABLE IF NOT EXISTS " + PARENT + "  " +
-                "(" + NAME + " " + TEXT + " , " + USERNAME + " " + TEXT + " , " + EMAIL + " " + TEXT + " , " + PHONE + " INTEGER  PRIMARY KEY, " + PASSWORD + " " + TEXT + ")";
-
-        String childTable = "CREATE TABLE IF NOT EXISTS child " +
-                "(child_id	INTEGER PRIMARY KEY AUTOINCREMENT, child_name TEXT, gender TEXT, DOB NUMERIC, bloodgroup TEXT,phone INTEGER ," +
-                "FOREIGN KEY(phone) REFERENCES " + PARENT +"(phone) )";
-
-        String diaper = " CREATE TABLE IF NOT EXISTS  diaper"+
-                "(diaper_id INTEGER PRIMARY KEY AUTOINCREMENT,change_time NUMERIC,date NUMERIC,status TEXT, child_id INTEGER, " +
-                "FOREIGN KEY(child_id) REFERENCES child(child_id))";
-
-
-        String feeding = "CREATE TABLE IF NOT EXISTS feeding" +
-                "(feeding_id INTEGER PRIMARY KEY AUTOINCREMENT, child_id INTEGER, start_time NUMERIC, end_time NUMERIC, date NUMERIC, " +
-                "FOREIGN KEY(child_id) REFERENCES child (child_id))";
-
-
-        String medication = "CREATE TABLE IF NOT EXISTS medication" +
-                "(medication_id INTEGER PRIMARY KEY AUTOINCREMENT, date NUMERIC, dosage INTEGER, med_name TEXT, " +
-                "FOREIGN KEY(child_id) REFERENCES child(child_id))";
-
-
-        String notes = "CREATE TABLE IF NOT EXISTS notes" +
-                "(" + NOTE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TEXT + " TEXT NOT NULL, "+ PHONE + " INTEGER," +
-                "FOREIGN KEY(phone) REFERENCES " + PARENT +"(phone))";
-
-
-        String pumping = " CREATE TABLE IF NOT EXISTS pumping" +
-                "(pumping_id INTEGER PRIMARY KEY AUTOINCREMENT, total_quantity INTEGER, date NUMERIC, " +
-                "start_time NUMERIC, end_time NUMERIC, left_quantity INTEGER, right_quantity INTEGER, "+ PHONE + " INTEGER," +
-                "FOREIGN KEY(phone) REFERENCES " + PARENT +"(phone))";
-
-        String sleep = " CREATE TABLE IF NOT EXISTS sleep" +
-                "(sleep_id INTEGER PRIMARY KEY AUTOINCREMENT, date NUMERIC,start_time NUMERIC, end_time NUMERIC, child_id INTEGER," +
-                "FOREIGN KEY(child_id) REFERENCES child (child_id))";
-
+        String parentTable = "CREATE TABLE IF NOT EXISTS " + PARENT + " (" + NAME + " TEXT , " + USERNAME + " TEXT, " + EMAIL + " TEXT, " + PHONE + " INTEGER  PRIMARY KEY, " + PASSWORD + " TEXT)";
         db.execSQL(parentTable);
-        db.execSQL(childTable);
-        db.execSQL(diaper);
-        db.execSQL(feeding);
-        db.execSQL(medication);
-        db.execSQL(notes);
-        db.execSQL(pumping);
-        db.execSQL(sleep);
+        db.execSQL("CREATE TABLE IF NOT EXISTS child (child_id	INTEGER PRIMARY KEY AUTOINCREMENT, child_name TEXT, gender TEXT, DOB NUMERIC, bloodgroup TEXT,phone INTEGER , FOREIGN KEY(phone) REFERENCES \" + PARENT +\"(phone))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS diaper (diaper_id INTEGER PRIMARY KEY AUTOINCREMENT,change_time NUMERIC,date NUMERIC,status TEXT, child_id INTEGER, FOREIGN KEY(child_id) REFERENCES child(child_id))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS feeding (feeding_id INTEGER PRIMARY KEY AUTOINCREMENT, child_id INTEGER, start_time NUMERIC, end_time NUMERIC, date NUMERIC, FOREIGN KEY(child_id) REFERENCES child (child_id))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS medication (medication_id INTEGER PRIMARY KEY AUTOINCREMENT, date NUMERIC, dosage INTEGER, med_name TEXT, FOREIGN KEY(child_id) REFERENCES child(child_id))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS notes (note_id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT NOT NULL, \"+ PHONE + \" INTEGER, FOREIGN KEY(phone) REFERENCES \" + PARENT +\"(phone))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS pumping (pumping_id INTEGER PRIMARY KEY AUTOINCREMENT, total_quantity INTEGER, date NUMERIC, start_time NUMERIC, end_time NUMERIC, left_quantity INTEGER, right_quantity INTEGER, "+ PHONE + " INTEGER, FOREIGN KEY(phone) REFERENCES " + PARENT +"(phone))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS sleep (sleep_id INTEGER PRIMARY KEY AUTOINCREMENT, date NUMERIC,start_time NUMERIC, end_time NUMERIC, child_id INTEGER, FOREIGN KEY(child_id) REFERENCES child (child_id))");
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String parentTable = "DROP TABLE IF EXISTS parentTable";
-        String childTable = "DROP TABLE IF EXISTS childTable";
-        String diaper = "DROP TABLE IF EXISTS diaper";
-        String feeding = "DROP TABLE IF EXISTS feeding";
-        String medication = "DROP TABLE IF EXISTS medication";
-        String notes = "DROP TABLE IF EXISTS notes";
-        String pumping = "DROP TABLE IF EXISTS pumping";
-        String sleep = "DROP TABLE IF EXISTS sleep";
-
-        db.execSQL(parentTable);
-        db.execSQL(childTable);
-        db.execSQL(diaper);
-        db.execSQL(feeding);
-        db.execSQL(medication);
-        db.execSQL(notes);
-        db.execSQL(pumping);
-        db.execSQL(sleep);
-
-        onCreate(db);
-    }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { }
 
     public boolean addParent(ParentModel parentModel){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -149,14 +95,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean addChild(ChildModel childModel)
     {
-        //public ChildModel(String name, String gender, String blood_group, int child_id, int DOB, int phone) {
+
         SQLiteDatabase db = this.getWritableDatabase();
+        //String isql131="insert into child(child_id, child_name,gender,DOB,bloodgroup,phone) values (103,'Vidya','F',123456,'AB',1234560987)";
+      //  db.execSQL(isql131);
+        //public ChildModel(String name, String gender, String blood_group, int child_id, int DOB, int phone) {
+/*
+        SQLiteDatabase db = this.getWritableDatabase();
+*/
+ChildModel childModel1 ;
+String name = childModel.getName();
+String gender = childModel.getGender();
+int dob = childModel.getDOB();
+String bloodgroup = childModel.getBloodgroup();
+int phone = childModel.getPhone();
+
         ContentValues cv = new ContentValues();
-        cv.put(CHILD_NAME,childModel.getName());
-        cv.put(DOB,0);
-        cv.put(GENDER,"");
-        cv.put(BLOOD_GROUP,childModel.getBlood_group());
-        cv.put(PHONE,123);
+        cv.put(CHILD_NAME,name);
+        cv.put(GENDER,gender);
+        cv.put(DOB,dob);
+        cv.put(BLOODGROUP,bloodgroup);
+        cv.put(PHONE,phone);
 
         long insert = db.insert(CHILD,null,cv);
         if (insert == -1) return false;

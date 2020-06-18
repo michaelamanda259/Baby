@@ -31,6 +31,7 @@
         TextView logoText, sloganText;
         TextInputLayout username,password;
         CheckBox remember;
+        public String checkbox;
 
         DatabaseHelper db  = new DatabaseHelper(LoginActivity.this);
 
@@ -51,16 +52,7 @@
 
             //remember me
             SharedPreferences preferences = getSharedPreferences("checkbox",MODE_PRIVATE);
-            String checkbox = preferences.getString("remember","");
-            if (checkbox.equals("true")){
-
-                Intent intent = new Intent(LoginActivity.this, Dashboard.class);
-                startActivity(intent);
-
-            }else if (checkbox.equals("false")){
-
-                Toast.makeText(this, "Please Sign In", Toast.LENGTH_SHORT).show();
-            }
+            checkbox = preferences.getString("remember","");
 
             callSignUp.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -118,25 +110,39 @@
             }
         }
 
-
         private void isUser() {
+
             final String userEnteredUsername = username.getEditText().getText().toString().trim();
             final String userEnteredPassword = password.getEditText().getText().toString().trim();
+            ParentModel parentModel = new ParentModel(userEnteredUsername);
 
             if (db.login(userEnteredUsername, userEnteredPassword))
             {
-                Intent intent = new Intent(LoginActivity.this,Dashboard.class);
-                startActivity(intent);
-
+                SessionManagement sessionManagement = new SessionManagement(LoginActivity.this);
+                String username;
+                if ( checkbox.equals("true")) {
+                    sessionManagement.saveSession(parentModel);
+                    username = sessionManagement.getSession();
+                    if (username.matches("ERROR")) {
+                        Toast.makeText(LoginActivity.this, " ERROR ... " + sessionManagement, Toast.LENGTH_LONG).show();
+                    }
+                    else
+                        {
+                        Toast.makeText(LoginActivity.this, " SUCCESSFULLY saved ... " + username, Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(LoginActivity.this, Dashboard.class);
+                        startActivity(intent);
+                    }
+                }
+                else {
+                    Intent intent = new Intent(LoginActivity.this,Dashboard.class);
+                    startActivity(intent);
+                }
             }
             else
             {
                 Toast.makeText(LoginActivity.this,"Login Failed... Try again !",Toast.LENGTH_LONG).show();
             }
         }
-
-
-
 
         public void forgetPassword(View view) {
             Intent intent = new Intent(LoginActivity.this,Dashboard.class);

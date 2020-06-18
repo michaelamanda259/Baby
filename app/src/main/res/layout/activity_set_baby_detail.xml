@@ -94,28 +94,41 @@
           android:layout_height="wrap_content"
           android:padding="10dp"
           android:orientation="vertical">
+
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/radiotext2"
+            android:layout_width="79dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textSize="20dp"
-            android:text="Gender"/>
+            android:text="Gender"
+            android:textSize="20dp" />
 
         <RadioGroup
             android:id="@+id/rg_gender"
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
           <androidx.appcompat.widget.AppCompatRadioButton
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:text="Male"/>
+              android:text="Male" />
+
           <androidx.appcompat.widget.AppCompatRadioButton
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="Female"/>
+              android:text="Female" />
 
         </RadioGroup>
+
+        <TextView
+            android:id="@+id/radiotext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            android:visibility="invisible" />
+
       </LinearLayout>
 
 

@@ -18,6 +18,11 @@ public class ParentModel {
     public ParentModel() {
     }
 
+    public ParentModel(String username)
+    {
+        this.username=username;
+    }
+
     //toString
     @Override
     public String toString() {

@@ -24,6 +24,16 @@ public class MainActivity extends AppCompatActivity {
     TextView logo,slogan;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        SessionManagement sessionManagement = new SessionManagement(MainActivity.this);
+        String username = sessionManagement.getSession();
+        if (!username.isEmpty()) {
+            Intent intent = new Intent(MainActivity.this, Dashboard.class);
+            startActivity(intent);
+        }
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -56,4 +66,6 @@ public class MainActivity extends AppCompatActivity {
         },SPLASH_SCREEN);
 
     }
+
+
 }

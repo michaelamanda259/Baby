@@ -1,22 +1,30 @@
 package com.example.baby;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.api.Backend;
 
 public class SetBabyDetail extends AppCompatActivity {
 
     TextInputLayout name, DOB, bloodgroup;
-    RadioGroup gender ;
+    public RadioGroup gender ;
     ImageButton confirm;
     DatabaseHelper databaseHelper;
+    TextView radio;
+    RadioButton selectedRadioButton ;
+    String selectedRadioButtonText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +35,11 @@ public class SetBabyDetail extends AppCompatActivity {
         DOB = findViewById(R.id.etAge);
         gender = findViewById(R.id.rg_gender);
         bloodgroup = findViewById(R.id.et_BloodGroup);
-
+        radio=findViewById(R.id.radiotext);
         confirm = findViewById(R.id.confirm_button);
-    }
 
+
+    }
 
     private Boolean validateName() {
         String val = name.getEditText().getText().toString();
@@ -57,20 +66,20 @@ public class SetBabyDetail extends AppCompatActivity {
         }
     }
 
-/*
     private Boolean validateGender() {
-        String val = Integer.toString(gender.getCheckedRadioButtonId());
-
-        if (val.isEmpty()) {
-            gender.setError("Field can not be empty");
+        int val = gender.getCheckedRadioButtonId();
+        if (val == -1) {
+            radio.setVisibility(View.VISIBLE);
+            radio.setText("Nothing selected");
             return false;
-        } else {
-            name.setError(null);
-            name.setErrorEnabled(false);
+        }
+        else{
+
+            selectedRadioButton =  findViewById(val);
+            selectedRadioButtonText = selectedRadioButton.getText().toString();
             return true;
         }
     }
-*/
 
     private Boolean validateBloodgroup() {
         String val = bloodgroup.getEditText().getText().toString();
@@ -89,25 +98,30 @@ public class SetBabyDetail extends AppCompatActivity {
 
     public void registerChild(View view) {
 
-            if(!validateName() | /*!validateDOB() |*/ !validateBloodgroup()){
+            if(!validateName() | /*!validateDOB() |*/ !validateBloodgroup() |  !validateGender()){
             return;
         }
-        String Name = name.getEditText().getText().toString();/*
+        String Name = name.getEditText().getText().toString();
         int DOBs =  Integer.parseInt(DOB.getEditText().getText().toString());
-        String Gender = Integer.toString(gender.getCheckedRadioButtonId());*/
+        String Gender = selectedRadioButtonText;
+
         String Bloodgroup = bloodgroup.getEditText().getText().toString();
         ChildModel childModel;
 
         try {
-            childModel = new ChildModel(Name,Bloodgroup);
-            Toast.makeText(SetBabyDetail.this,"Registered  "+childModel, Toast.LENGTH_SHORT).show();
+            childModel = new ChildModel(Name,Gender,DOBs,Bloodgroup,1234560987);
+            Toast.makeText(SetBabyDetail.this,"Registered", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
-            childModel = new ChildModel("Error","Error");
+            childModel = new ChildModel("Error","Error",0,"Error",0);
         }
 
         databaseHelper  = new DatabaseHelper(SetBabyDetail.this);
         boolean success = databaseHelper.addChild(childModel);
-        Toast.makeText(SetBabyDetail.this,"Success"+ success, Toast.LENGTH_SHORT).show();
+        Toast.makeText(SetBabyDetail.this,"Successfully added ? "+ success, Toast.LENGTH_SHORT).show();
+        if (success==true) {
+            startActivity(new Intent(SetBabyDetail.this, Dashboard.class));
+
+        }
     }
 
 
