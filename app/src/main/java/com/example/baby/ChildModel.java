@@ -1,4 +1,7 @@
 package com.example.baby;
+
+import android.database.sqlite.SQLiteDatabase;
+
 /*
 CREATE TABLE IF NOT EXISTS " + CHILD +"
 (child_id	INTEGER PRIMARY KEY AUTOINCREMENT, child_name TEXT, gender TEXT, DOB NUMERIC, blood_group TEXT,"+ PHONE +" INTEGER ," +
@@ -97,8 +100,22 @@ public class ChildModel {
     public void setDOB(int DOB) {
         this.DOB = DOB;
     }
-
+    /*  SetBabyDetail setBabyDetail = new SetBabyDetail();
+            SQLiteDatabase db = this.getReadableDatabase();
+            String username = setBabyDetail.parentLogin();
+            Log.i(TAG,username);
+            int phone=0;
+             Cursor resultSet = mydatbase.rawQuery("Select * from TutorialsPoint",null);
+    resultSet.moveToFirst();
+    String username = resultSet.getString(0);
+    String password = resultSet.getString(1);
+     @SuppressLint("Recycle") Cursor cursor = db.rawQuery(" SELECT phone FROM Parent WHERE username=? ", new String[] { username});
+            cursor.moveToFirst();
+            phone = cursor.getInt(0);
+            return phone;
+        }*/
     public int getPhone() {
+//        int phone = DatabaseHelper.parentPhone();
         return phone;
     }
 

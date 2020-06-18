@@ -20,7 +20,8 @@ public class SetBabyDetail extends AppCompatActivity {
     TextInputLayout name, DOB, bloodgroup;
     public RadioGroup gender ;
     ImageButton confirm;
-    DatabaseHelper databaseHelper;
+    DatabaseHelper databaseHelper = new DatabaseHelper(SetBabyDetail.this);
+    public int phone;
     TextView radio;
     RadioButton selectedRadioButton ;
     String selectedRadioButtonText;
@@ -98,24 +99,31 @@ public class SetBabyDetail extends AppCompatActivity {
 
     public void registerChild(View view) {
 
-            if(!validateName() | /*!validateDOB() |*/ !validateBloodgroup() |  !validateGender()){
-            return;
-        }
+        if(!validateName() | /*!validateDOB() |*/ !validateBloodgroup() |  !validateGender()){
+            Toast.makeText(SetBabyDetail.this,"Failed2", Toast.LENGTH_SHORT).show();
+
+            return;}
+
         String Name = name.getEditText().getText().toString();
         int DOBs =  Integer.parseInt(DOB.getEditText().getText().toString());
         String Gender = selectedRadioButtonText;
+        SessionManagement sessionManagement = new SessionManagement(SetBabyDetail.this);
+
+        String userName;
+        userName= sessionManagement.getSession();
+        phone = databaseHelper.parentPhone(userName);
+        int Phone = phone;
 
         String Bloodgroup = bloodgroup.getEditText().getText().toString();
         ChildModel childModel;
 
         try {
-            childModel = new ChildModel(Name,Gender,DOBs,Bloodgroup,1234560987);
+            childModel = new ChildModel(Name,Gender,DOBs,Bloodgroup,Phone);
             Toast.makeText(SetBabyDetail.this,"Registered", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             childModel = new ChildModel("Error","Error",0,"Error",0);
         }
 
-        databaseHelper  = new DatabaseHelper(SetBabyDetail.this);
         boolean success = databaseHelper.addChild(childModel);
         Toast.makeText(SetBabyDetail.this,"Successfully added ? "+ success, Toast.LENGTH_SHORT).show();
         if (success==true) {
@@ -123,7 +131,6 @@ public class SetBabyDetail extends AppCompatActivity {
 
         }
     }
-
 
 
 }

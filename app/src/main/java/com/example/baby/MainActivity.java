@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     TextView logo,slogan;
 
-    @Override
+/*    @Override
     protected void onStart() {
         super.onStart();
         SessionManagement sessionManagement = new SessionManagement(MainActivity.this);
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, Dashboard.class);
             startActivity(intent);
         }
-    }
+    }*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -35,6 +35,7 @@
 
         DatabaseHelper db  = new DatabaseHelper(LoginActivity.this);
 
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -49,10 +50,6 @@
             password = findViewById(R.id.etPassword);
             login_btn = findViewById(R.id.login_btn);
             remember = findViewById(R.id.cb_remember);
-
-            //remember me
-            SharedPreferences preferences = getSharedPreferences("checkbox",MODE_PRIVATE);
-            checkbox = preferences.getString("remember","");
 
             callSignUp.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -111,6 +108,7 @@
         }
 
         private void isUser() {
+            if (remember.isChecked()) checkbox = "true";
 
             final String userEnteredUsername = username.getEditText().getText().toString().trim();
             final String userEnteredPassword = password.getEditText().getText().toString().trim();
@@ -120,6 +118,8 @@
             {
                 SessionManagement sessionManagement = new SessionManagement(LoginActivity.this);
                 String username;
+
+
                 if ( checkbox.equals("true")) {
                     sessionManagement.saveSession(parentModel);
                     username = sessionManagement.getSession();
@@ -127,7 +127,7 @@
                         Toast.makeText(LoginActivity.this, " ERROR ... " + sessionManagement, Toast.LENGTH_LONG).show();
                     }
                     else
-                        {
+                    {
                         Toast.makeText(LoginActivity.this, " SUCCESSFULLY saved ... " + username, Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(LoginActivity.this, Dashboard.class);
                         startActivity(intent);

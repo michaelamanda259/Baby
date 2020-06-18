@@ -43,11 +43,8 @@ public class  Dashboard extends AppCompatActivity implements View.OnClickListene
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences preferences = getSharedPreferences("checkbox",MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString("remember","false");
-                editor.apply();
-
+                SessionManagement sessionManagement = new SessionManagement(Dashboard.this);
+                sessionManagement.removeSession();
                 finish();
             }
         });
