@@ -167,7 +167,12 @@ public class RegisterActivity extends AppCompatActivity {
         DatabaseHelper databaseHelper  = new DatabaseHelper(RegisterActivity.this);
         boolean success = databaseHelper.addParent(parentModel);
         Toast.makeText(RegisterActivity.this,"Success"+ success, Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(RegisterActivity.this, Dashboard.class);
+        if (success )
+        {
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(intent);
+
+        }
 
     }
 

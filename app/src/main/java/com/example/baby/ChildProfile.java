@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.Set;
 
 public class ChildProfile extends AppCompatActivity {
 
@@ -20,15 +23,18 @@ public class ChildProfile extends AppCompatActivity {
         gender = findViewById(R.id.tv_gender);
         dob = findViewById(R.id.tv_dob);
         bloodGroup = findViewById(R.id.tv_bloodGroup);
-    }
 
+    }
     public void backtobhome(View view) {
         Intent intent = new Intent(ChildProfile.this,Dashboard.class);
         startActivity(intent);
     }
 
     public void babyDetail(View view) {
+        SessionManagement sm = new SessionManagement(ChildProfile.this);
+        sm.removeSessionChild();
         Intent intent = new Intent(ChildProfile.this,SetBabyDetail.class);
         startActivity(intent);
     }
+
 }

@@ -20,6 +20,8 @@ public class UserProfile extends AppCompatActivity {
         fullname = findViewById(R.id.tv_name);
         phonenumber = findViewById(R.id.tv_phoneNumber);
         email = findViewById(R.id.tv_email);
+
+        username.setText("Amanda");
     }
 
 

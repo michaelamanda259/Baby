@@ -109,6 +109,7 @@
 
         private void isUser() {
             if (remember.isChecked()) checkbox = "true";
+            else checkbox ="false";
 
             final String userEnteredUsername = username.getEditText().getText().toString().trim();
             final String userEnteredPassword = password.getEditText().getText().toString().trim();
@@ -118,22 +119,20 @@
             {
                 SessionManagement sessionManagement = new SessionManagement(LoginActivity.this);
                 String username;
-
-
-                if ( checkbox.equals("true")) {
+                if ( checkbox.equals("true"))
+                {
                     sessionManagement.saveSession(parentModel);
                     username = sessionManagement.getSession();
                     if (username.matches("ERROR")) {
-                        Toast.makeText(LoginActivity.this, " ERROR ... " + sessionManagement, Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, " AN ERROR OCCURRED... " + sessionManagement, Toast.LENGTH_LONG).show();
                     }
                     else
                     {
-                        Toast.makeText(LoginActivity.this, " SUCCESSFULLY saved ... " + username, Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(LoginActivity.this, Dashboard.class);
                         startActivity(intent);
                     }
                 }
-                else {
+                 else{
                     Intent intent = new Intent(LoginActivity.this,Dashboard.class);
                     startActivity(intent);
                 }

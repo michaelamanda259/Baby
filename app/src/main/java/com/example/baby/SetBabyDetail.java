@@ -86,11 +86,11 @@ public class SetBabyDetail extends AppCompatActivity {
         String val = bloodgroup.getEditText().getText().toString();
 
         if (val.isEmpty()) {
-            name.setError("Field can not be empty");
+            bloodgroup.setError("Field can not be empty");
             return false;
         } else {
-            name.setError(null);
-            name.setErrorEnabled(false);
+            bloodgroup.setError(null);
+            bloodgroup.setErrorEnabled(false);
             return true;
         }
 
@@ -99,13 +99,13 @@ public class SetBabyDetail extends AppCompatActivity {
 
     public void registerChild(View view) {
 
-        if(!validateName() | /*!validateDOB() |*/ !validateBloodgroup() |  !validateGender()){
-            Toast.makeText(SetBabyDetail.this,"Failed2", Toast.LENGTH_SHORT).show();
+        if(!validateName() | !validateDOB() | !validateBloodgroup() |  !validateGender()){
+            Toast.makeText(SetBabyDetail.this,"Failed", Toast.LENGTH_SHORT).show();
 
             return;}
 
         String Name = name.getEditText().getText().toString();
-        int DOBs =  Integer.parseInt(DOB.getEditText().getText().toString());
+        String DOBs =  DOB.getEditText().getText().toString();
         String Gender = selectedRadioButtonText;
         SessionManagement sessionManagement = new SessionManagement(SetBabyDetail.this);
 
@@ -121,12 +121,26 @@ public class SetBabyDetail extends AppCompatActivity {
             childModel = new ChildModel(Name,Gender,DOBs,Bloodgroup,Phone);
             Toast.makeText(SetBabyDetail.this,"Registered", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
-            childModel = new ChildModel("Error","Error",0,"Error",0);
+            childModel = new ChildModel("Error","Error","Error","Error",0);
         }
 
         boolean success = databaseHelper.addChild(childModel);
         Toast.makeText(SetBabyDetail.this,"Successfully added ? "+ success, Toast.LENGTH_SHORT).show();
         if (success==true) {
+            SessionManagement sessionManagement1 = new SessionManagement(SetBabyDetail.this);
+            int id;
+            sessionManagement1.saveChildid(childModel);
+            id = sessionManagement1.getSessionChild();
+            if (id <= 0) {
+                Toast.makeText(SetBabyDetail.this, " AN ERROR OCCURRED... " + sessionManagement1, Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                Toast.makeText(SetBabyDetail.this, " saved... " + sessionManagement1.getSessionChild(), Toast.LENGTH_LONG).show();
+
+            }
+
+
             startActivity(new Intent(SetBabyDetail.this, Dashboard.class));
 
         }

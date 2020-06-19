@@ -164,7 +164,10 @@ public class  Dashboard extends AppCompatActivity implements View.OnClickListene
             case R.id.nav_Logout:
                 SessionManagement sessionManagement = new SessionManagement(Dashboard.this);
                 sessionManagement.removeSession();
+                Intent in = new Intent(Dashboard.this,LoginActivity.class);
+                startActivity(in);
                 finish();
+
                 break;
 
 

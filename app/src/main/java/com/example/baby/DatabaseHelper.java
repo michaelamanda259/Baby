@@ -68,16 +68,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String parentTable = "CREATE TABLE IF NOT EXISTS " + PARENT + " (" + NAME + " TEXT , " + USERNAME + " TEXT, " + EMAIL + " TEXT, " + PHONE + " INTEGER  PRIMARY KEY, " + PASSWORD + " TEXT)";
         db.execSQL(parentTable);
-        db.execSQL("CREATE TABLE IF NOT EXISTS child (child_id	INTEGER PRIMARY KEY AUTOINCREMENT, child_name TEXT, gender TEXT, DOB NUMERIC, bloodgroup TEXT,phone INTEGER , FOREIGN KEY(phone) REFERENCES " + PARENT + "(phone))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS diaper (diaper_id INTEGER PRIMARY KEY AUTOINCREMENT,change_time NUMERIC,date NUMERIC,status TEXT, child_id INTEGER, FOREIGN KEY(child_id) REFERENCES child(child_id))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS feedingbottle (feedingb_id INTEGER PRIMARY KEY AUTOINCREMENT, child_id INTEGER, date NUMERIC,quantity INTEGER, FOREIGN KEY(child_id) REFERENCES child (child_id))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS feedingnursing (feedingn_id INTEGER PRIMARY KEY AUTOINCREMENT, child_id INTEGER, start_time NUMERIC, end_time NUMERIC, date NUMERIC, left_quantity INTEGER, right_quantity INTEGER,total_quantity INTEGER,FOREIGN KEY(child_id) REFERENCES child (child_id))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS feedingsolids (feedings_id INTEGER PRIMARY KEY AUTOINCREMENT, child_id INTEGER, date NUMERIC,quantity INTEGER, FOREIGN KEY(child_id) REFERENCES child (child_id))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS child (child_id	INTEGER PRIMARY KEY AUTOINCREMENT, child_name TEXT, gender TEXT, DOB DATE, bloodgroup TEXT,phone INTEGER , FOREIGN KEY(phone) REFERENCES " + PARENT + "(phone))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS diaper (diaper_id INTEGER PRIMARY KEY AUTOINCREMENT,change_time TIME,date DATE,status TEXT, child_id INTEGER, FOREIGN KEY(child_id) REFERENCES child(child_id))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS feedingbottle (feedingb_id INTEGER PRIMARY KEY AUTOINCREMENT, child_id INTEGER, date DATE,quantity INTEGER, FOREIGN KEY(child_id) REFERENCES child (child_id))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS feedingnursing (feedingn_id INTEGER PRIMARY KEY AUTOINCREMENT, child_id INTEGER, start_time TIME, end_time TIME, date DATE, left_quantity INTEGER, right_quantity INTEGER,total_quantity INTEGER,FOREIGN KEY(child_id) REFERENCES child (child_id))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS feedingsolids (feedings_id INTEGER PRIMARY KEY AUTOINCREMENT, child_id INTEGER, date DATE,quantity INTEGER, FOREIGN KEY(child_id) REFERENCES child (child_id))");
 
-        db.execSQL("CREATE TABLE IF NOT EXISTS medication (medication_id INTEGER PRIMARY KEY AUTOINCREMENT, child_id INTEGER,date NUMERIC, dosage INTEGER, med_name TEXT, FOREIGN KEY(child_id) REFERENCES child(child_id))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS medication (medication_id INTEGER PRIMARY KEY AUTOINCREMENT, child_id INTEGER,date DATE, dosage INTEGER, med_name TEXT, FOREIGN KEY(child_id) REFERENCES child(child_id))");
         db.execSQL("CREATE TABLE IF NOT EXISTS notes (note_id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT NOT NULL, " + PHONE + " INTEGER, FOREIGN KEY(phone) REFERENCES " + PARENT + "(phone))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS pumping (pumping_id INTEGER PRIMARY KEY AUTOINCREMENT, total_quantity INTEGER, date NUMERIC, start_time NUMERIC, end_time NUMERIC, left_quantity INTEGER, right_quantity INTEGER, " + PHONE + " INTEGER, FOREIGN KEY(phone) REFERENCES " + PARENT + "(phone))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS sleep (sleep_id INTEGER PRIMARY KEY AUTOINCREMENT, date NUMERIC,start_time NUMERIC, end_time NUMERIC, child_id INTEGER, FOREIGN KEY(child_id) REFERENCES child (child_id))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS pumping (pumping_id INTEGER PRIMARY KEY AUTOINCREMENT, total_quantity INTEGER, date DATE, start_time TIME, end_time TIME, left_quantity INTEGER, right_quantity INTEGER, " + PHONE + " INTEGER, FOREIGN KEY(phone) REFERENCES " + PARENT + "(phone))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS sleep (sleep_id INTEGER PRIMARY KEY AUTOINCREMENT, date DATE,start_time TIME, end_time TIME, child_id INTEGER, FOREIGN KEY(child_id) REFERENCES child (child_id))");
     }
 
     @Override
@@ -117,7 +117,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ChildModel childModel1;
         String name = childModel.getName();
         String gender = childModel.getGender();
-        int dob = childModel.getDOB();
+        String dob = childModel.getDOB();
         String bloodgroup = childModel.getBloodgroup();
         int phone = childModel.getPhone();
         //int phone = this.parentPhone();
@@ -145,5 +145,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         phone = cursor.getInt(cursor.getColumnIndex("phone"));
         return phone;
     }
+
+    public void setChildId (int p) // setting child id using db
+    {
+        String c= String.valueOf(p);
+        int cID;
+        SQLiteDatabase db1 = this.getReadableDatabase();
+        Cursor cursor = db1.rawQuery(" SELECT child_id FROM child WHERE phone=? ", new String[] { c });
+        cursor.moveToFirst();
+        cID = cursor.getInt(cursor.getColumnIndex("child_id"));
+        ChildModel cm = new ChildModel();
+        cm.setChild_id(cID);
+  }
+
 
 }
