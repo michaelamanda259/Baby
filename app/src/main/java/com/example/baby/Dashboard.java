@@ -147,17 +147,27 @@ public class  Dashboard extends AppCompatActivity implements View.OnClickListene
         menu.findItem(R.id.nav_Logout).setVisible(false);
         menu.findItem(R.id.nav_profile).setVisible(false);*/
 
+        /*Intent intent;*/
         switch (menuItem.getItemId()) {
             case R.id.nav_profile:
-                Intent intent = new Intent(Dashboard.this,SetBabyDetail.class);
+               Intent intent = new Intent(Dashboard.this,UserProfile.class);
                 startActivity(intent);
                 break;
+
+            case R.id.nav_babyprofile:
+               Intent i = new Intent(Dashboard.this,ChildProfile.class);
+                startActivity(i);
+                break;
+
+
 
             case R.id.nav_Logout:
                 SessionManagement sessionManagement = new SessionManagement(Dashboard.this);
                 sessionManagement.removeSession();
                 finish();
                 break;
+
+
            /* case R.id.nav_login: menu.findItem(R.id.nav_Logout).setVisible(true);
                 menu.findItem(R.id.nav_profile).setVisible(true);
                 menu.findItem(R.id.nav_login).setVisible(false);
