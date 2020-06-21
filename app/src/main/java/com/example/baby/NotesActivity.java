@@ -22,6 +22,7 @@ public class NotesActivity extends AppCompatActivity {
     TimePickerDialog timePickerDialog;
     EditText editTextTime,editTextDate;
 
+
     public String getCurrentDate(){
         Calendar c = Calendar.getInstance();
         System.out.println(c.getTime());
