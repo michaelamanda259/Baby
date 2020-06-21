@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,9 +21,10 @@ import java.util.Locale;
 
 public class SleepActivity extends AppCompatActivity {
 
-    EditText etTimeStart,etTimeEnd,etTimeTotal,editTextTime,editTextDate;;
+    EditText etTimeStart,etTimeEnd,etTimeTotal,editTextDate,editTextTime;
     TimePickerDialog timePickerDialog;
     ImageButton buttonBack,buttonSubmit;
+    DatabaseHelper databaseHelper;
 
 
     public String getCurrentDate(){
@@ -87,6 +89,7 @@ public class SleepActivity extends AppCompatActivity {
         });
 
     }
+
     public void chooseTime(View view) {
 
         Calendar calendar = Calendar.getInstance();
@@ -168,5 +171,81 @@ public class SleepActivity extends AppCompatActivity {
             }
         }, hourOfDay, minute, false);
         timePickerDialog.show();
+    }
+
+    private Boolean validateDate() {
+        String val = editTextDate.getText().toString();
+
+        if (val.isEmpty()) {
+            editTextDate.setError("Field can not be empty");
+            return false;
+        } else {
+            editTextDate.setError(null);
+//            editTextDate.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private Boolean validateStartTime() {
+        String val = etTimeStart.getText().toString();
+
+        if (val.isEmpty() ) {
+            etTimeStart.setError("Field can not be empty");
+            return false;
+        } else {
+            etTimeStart.setError(null);
+            return true;
+        }
+    }
+
+    private Boolean validateEndTime(){
+        String val2 = etTimeEnd.getText().toString();
+
+        if (val2.isEmpty()  ) {
+            etTimeEnd.setError("Field can not be empty");
+            return false;
+        } else {
+            etTimeEnd.setError(null);
+            return true;
+        }
+    }
+
+    public void saveData(View view)
+    {
+        databaseHelper = new DatabaseHelper(SleepActivity.this);
+        String status ,date , time;
+        int childid;
+        boolean success = false;
+        if(!validateDate() | !validateStartTime() | !validateEndTime()  ){
+            Toast.makeText(SleepActivity.this,"SELECT AN OPTION...", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+/*
+        int val = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(val);
+        status = (String) radioButton.getText();
+        date = editTextDate.getText().toString();
+        time = editTextTime.getText().toString();
+*/
+
+    /*    SessionManagement sessionManagement = new SessionManagement(SleepActivity.this);
+        childid =  sessionManagement.getSessionChild();
+        Toast.makeText(SleepActivity.this," child_id..."+childid, Toast.LENGTH_SHORT).show();
+
+        try {
+            success=databaseHelper.addDiaper(date,time,status,childid);
+            Toast.makeText(DiaperActivity.this,"Added", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            databaseHelper.addDiaper("Error","Error","Error",0);
+        }
+        if (success)
+        {
+            Toast.makeText(DiaperActivity.this,"Success..."+success, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(DiaperActivity.this, Dashboard.class);
+            startActivity(intent);
+
+        }
+*/
     }
 }

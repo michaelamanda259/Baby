@@ -25,6 +25,8 @@ public class DiaperActivity extends AppCompatActivity {
     ImageButton buttonBack,buttonSubmit;
     TimePickerDialog timePickerDialog;
     EditText editTextTime,editTextDate;
+    DatabaseHelper databaseHelper;
+    ChildModel cm;
 
 
     public String getCurrentDate(){
@@ -154,54 +156,38 @@ public class DiaperActivity extends AppCompatActivity {
 
     public void saveData(View view)
     {
-        String status ;
-        int date , time, id , childid;
+        databaseHelper = new DatabaseHelper(DiaperActivity.this);
+        String status ,date , time;
+        int childid;
+        boolean success = false;
         if(!validateDate() | !validateTime() | !validateStaus()  ){
             Toast.makeText(DiaperActivity.this,"SELECT AN OPTION...", Toast.LENGTH_SHORT).show();
 
             return;
         }
-        ;
         int val = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(val);
         status = (String) radioButton.getText();
+        date = editTextDate.getText().toString();
+        time = editTextTime.getText().toString();
+
         SessionManagement sessionManagement = new SessionManagement(DiaperActivity.this);
         childid =  sessionManagement.getSessionChild();
-
-
-        Toast.makeText(DiaperActivity.this,"Status..."+status, Toast.LENGTH_SHORT).show();
-        Toast.makeText(DiaperActivity.this,"Childid..."+childid, Toast.LENGTH_SHORT).show();
-
-
-
-      /*  Intent intent = new Intent(DiaperActivity.this,Dashboard.class);
-        startActivity(intent);
-
-
-
-        String Name = name.getEditText().getText().toString();
-        int DOBs =  Integer.parseInt(DOB.getEditText().getText().toString());
-        String Gender = selectedRadioButtonText;
-        SessionManagement sessionManagement = new SessionManagement(SetBabyDetail.this);
-
-        String userName;
-        userName= sessionManagement.getSession();
-        phone = databaseHelper.parentPhone(userName);
-        int Phone = phone;
-
-        String Bloodgroup = bloodgroup.getEditText().getText().toString();
-        ChildModel childModel;
+        Toast.makeText(DiaperActivity.this," child_id..."+childid, Toast.LENGTH_SHORT).show();
 
         try {
-            childModel = new ChildModel(Name,Gender,DOBs,Bloodgroup,Phone);
-            Toast.makeText(SetBabyDetail.this,"Registered", Toast.LENGTH_SHORT).show();
+            success=databaseHelper.addDiaper(date,time,status,childid);
+            Toast.makeText(DiaperActivity.this,"Added", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
-            childModel = new ChildModel("Error","Error",0,"Error",0);
+            databaseHelper.addDiaper("Error","Error","Error",0);
         }
+        if (success)
+        {
+            Toast.makeText(DiaperActivity.this,"Success..."+success, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(DiaperActivity.this, Dashboard.class);
+            startActivity(intent);
 
-        boolean success = databaseHelper.addChild(childModel);
-        Toast.makeText(SetBabyDetail.this,"Successfully added ? "+ success, Toast.LENGTH_SHORT).show();        */
-
+        }
 
         }
 

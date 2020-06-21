@@ -6,19 +6,18 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "myDB.db";
 
-    private static final String DIAPER = "Diaper";
-    private static final String FEEDING = "Feeding";
-    private static final String MEDICATION = "Medication";
-    private static final String NOTES = "Notes";
-    private static final String PUMPING = "Pumping";
-    private static final String SLEEP = "Sleep";
+    private static final String DIAPER = "diaper";
+    private static final String FEEDING = "feding";
+    private static final String MEDICATION = "medication";
+    private static final String NOTES = "notes";
+    private static final String PUMPING = "pumping";
+    private static final String SLEEP = "sleep";
     //parent variable
     private static final String PARENT = "Parent";
     public static final String NAME = "name";
@@ -35,33 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DOB = "DOB";
     public static final String BLOODGROUP = "bloodgroup";
 
-    //Diaper variables
-    public static final String DIAPER_ID = "diaper_id";
-    public static final String CHANGE_TIME = "change_time";
-    public static final String DATE = "date";
-    public static final String STATUS = "status";
-
-    //Medication variables
-    public static final String MEDICATION_ID = "medication_id";
-    public static final String DOSAGE = "dosage";
-    public static final String MEDNAME = "medname";
-
-    //note variables
-    public static final String NOTE_ID = "note_id";
-    public static final String TEXT = "text";
-
-    //pumping variables
-    public static final String PUMPING_ID = "pumping_id";
-    public static final String TOTAL_QUANTITY = "total_quantity";
-    public static final String START_TIME = "start_time";
-    public static final String END_TIME = "end_time";
-    public static final String LEFT_QUANTITY = "left_quantity";
-    public static final String RIGHT_QUANTITY = "right_quantity";
-
-    //sleep variables
-    public static final String SLEEP_ID = "sleep_id";
     public static final int VERSION = 1;
-    private static final String TAG = "DatabaseHelper";
     private String userName;
 
     public DatabaseHelper(@Nullable Context context) {
@@ -88,8 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { }
 
     public boolean addParent(ParentModel parentModel) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -103,14 +75,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long insert = db.insert(PARENT, null, cv);
         if (insert == -1) return false;
         else return true;
-    }
-
-    public boolean login(String username, String password) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(" SELECT * FROM Parent WHERE username=? and password=?", new String[]{username, password});
-        if (cursor.getCount() > 0) return true;
-        else return false;
     }
 
     public boolean addChild(ChildModel childModel) {
@@ -133,6 +97,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long insert = db.insert(CHILD, null, cv);
         if (insert == -1) return false;
         else return true;
+    }
+
+    public boolean addDiaper(String date,String time, String status,  int child_id){
+        SQLiteDatabase sql = this.getWritableDatabase();
+         ContentValues cv =  new ContentValues();
+         cv.put("change_time",time);
+         cv.put("date",date);
+         cv.put("status",status);
+         cv.put("phone",child_id);
+
+         long insert = sql.insert(DIAPER,null,cv);
+         if (insert == -1) return false;
+         else return true;
+    }
+
+    public boolean login(String username, String password) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(" SELECT * FROM Parent WHERE username=? and password=?", new String[]{username, password});
+        if (cursor.getCount() > 0) return true;
+        else return false;
     }
 
     public int parentPhone(String username)//to get session values from session and phone values from databse

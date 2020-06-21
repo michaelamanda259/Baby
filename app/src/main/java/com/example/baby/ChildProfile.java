@@ -31,8 +31,7 @@ public class ChildProfile extends AppCompatActivity {
     }
 
     public void babyDetail(View view) {
-        SessionManagement sm = new SessionManagement(ChildProfile.this);
-        sm.removeSessionChild();
+
         Intent intent = new Intent(ChildProfile.this,SetBabyDetail.class);
         startActivity(intent);
     }
