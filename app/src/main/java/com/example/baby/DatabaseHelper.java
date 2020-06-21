@@ -72,6 +72,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String parentTable = "CREATE TABLE IF NOT EXISTS " + PARENT + " (" + NAME + " TEXT , " + USERNAME + " TEXT, " + EMAIL + " TEXT, " + PHONE + " INTEGER  PRIMARY KEY, " + PASSWORD + " TEXT)";
         db.execSQL(parentTable);
+
+        db.execSQL("CREATE TABLE IF NOT EXISTS child (child_id	INTEGER PRIMARY KEY AUTOINCREMENT, child_name TEXT, gender TEXT, DOB DATE, bloodgroup TEXT,phone INTEGER , FOREIGN KEY(phone) REFERENCES " + PARENT + "(phone))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS diaper (diaper_id INTEGER PRIMARY KEY AUTOINCREMENT,change_time TIME,date DATE,status TEXT, child_id INTEGER, FOREIGN KEY(child_id) REFERENCES child(child_id))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS feedingbottle (feedingb_id INTEGER PRIMARY KEY AUTOINCREMENT, child_id INTEGER, date DATE,quantity INTEGER, FOREIGN KEY(child_id) REFERENCES child (child_id))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS feedingnursing (feedingn_id INTEGER PRIMARY KEY AUTOINCREMENT, child_id INTEGER, start_time TIME, end_time TIME, date DATE, left_quantity INTEGER, right_quantity INTEGER,total_quantity INTEGER,FOREIGN KEY(child_id) REFERENCES child (child_id))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS feedingsolids (feedings_id INTEGER PRIMARY KEY AUTOINCREMENT, child_id INTEGER, date DATE,quantity INTEGER, FOREIGN KEY(child_id) REFERENCES child (child_id))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS medication (medication_id INTEGER PRIMARY KEY AUTOINCREMENT, child_id INTEGER,date DATE, dosage INTEGER, med_name TEXT, FOREIGN KEY(child_id) REFERENCES child(child_id))");
+
         db.execSQL("CREATE TABLE IF NOT EXISTS child (phone	INTEGER PRIMARY KEY AUTOINCREMENT, child_name TEXT, gender TEXT, DOB DATE, bloodgroup TEXT , FOREIGN KEY(phone) REFERENCES " + PARENT + "(phone))");
 
 
