@@ -48,7 +48,7 @@ public class ChildModel {
     "+ PHONE +" INTEGER ," + "FOREIGN KEY("+ PHONE +") REFERENCES " + PARENT +"("+ PHONE +") ON DELETE CASCADE)";
 */
     private String name,DOB,gender,bloodgroup;
-    private int child_id, phone;
+    private int  phone;
 //103,'Vidya','F',123456,'AB',1234560987
     public ChildModel( String name, String gender,  String DOB, String bloodgroup,int phone) {
         this.name = name;
@@ -83,14 +83,6 @@ public class ChildModel {
 
     public void setBlood_group(String bloodgroup) {
         this.bloodgroup = bloodgroup;
-    }
-
-    public int getChild_id() {
-        return child_id;
-    }
-
-    public void setChild_id(int child_id) {
-        this.child_id = child_id;
     }
 
     public String getDOB() {
@@ -129,7 +121,6 @@ public class ChildModel {
                 "name='" + name + '\'' +
                 ", gender='" + gender + '\'' +
                 ", bloodgroup='" + bloodgroup + '\'' +
-                ", child_id=" + child_id +
                 ", DOB=" + DOB +
                 ", phone=" + phone +
                 '}';
