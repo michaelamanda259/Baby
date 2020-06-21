@@ -20,7 +20,7 @@
         <!-- android:label="@string/title_activity_tab_feeding" -->
         <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
         <!-- <activity android:name=".ChronometerActivity" /> -->
-        <!-- <activity android:name=".NotesActivity" /> -->
+         <activity android:name=".NotesActivity" />
         <activity android:name=".MedicationActivity" />
         <activity android:name=".SleepActivity" />
         <activity android:name=".PumpingActivity" />
