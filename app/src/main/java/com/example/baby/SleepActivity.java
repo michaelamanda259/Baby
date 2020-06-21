@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class SleepActivity extends AppCompatActivity {
@@ -87,6 +88,48 @@ public class SleepActivity extends AppCompatActivity {
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if (!etTimeStart.getText().toString().equals("") && !etTimeEnd.getText().toString().equals("")) {
+
+                    SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+
+                    String dateStart = etTimeStart.getText().toString();
+                    String dateStop = etTimeEnd.getText().toString();
+
+
+                    try {
+                        Date d1 = format.parse(dateStart);
+                        Date d2 = format.parse(dateStop);
+
+                        //in milliseconds
+                        long diff = d2.getTime() - d1.getTime();
+//                        long diffHours = diff / (60 * 60 * 1000) % 24;
+                        long days = (int) (diff / (1000*60*60*24));
+                        long hours = (int) ((diff - (1000*60*60*24*days)) / (1000*60*60));
+                        long min = (int) (diff - (1000*60*60*24*days) - (1000*60*60*hours)) / (1000*60);
+                        hours = (hours < 0 ? -hours : hours);
+                        etTimeTotal.setText(hours + " hours ");
+                    } catch (Exception e) {
+                        // TODO: handle exception
+                    }
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+        etTimeStart.addTextChangedListener(textWatcher);
+        etTimeEnd.addTextChangedListener(textWatcher);
 
     }
 
