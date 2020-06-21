@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat;
 public class SessionManagement {
     private static SharedPreferences.Editor editor;
     private static String SHARED_KEY= "session_user ";
-    private static String SHARED_KEY2= "session_child_id ";
+    private static String SHARED_KEY2= "session_PHONE";
 
     SharedPreferences sharedPreferences;
     String SHARED_PREF_NAME = "session";
@@ -24,7 +24,7 @@ public class SessionManagement {
 
     }
     public static void saveChildid(ChildModel childModel) {
-        int child_id = childModel.getChild_id();
+        int child_id = childModel.getPhone();
         editor.putInt(SHARED_KEY2,child_id).commit();
 
     }
