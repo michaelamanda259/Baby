@@ -1,4 +1,5 @@
 package com.example.baby;
+
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "myDB.db";
 
@@ -59,10 +61,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //sleep variables
     public static final String SLEEP_ID = "sleep_id";
     public static final int VERSION = 1;
-    private static final String TAG = "DatabaseHelper" ;
+    private static final String TAG = "DatabaseHelper";
     private String userName;
 
-    public DatabaseHelper(@Nullable Context context) {  super(context, DATABASE_NAME, null, VERSION); }
+    public DatabaseHelper(@Nullable Context context) {
+        super(context, DATABASE_NAME, null, VERSION);
+    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -81,7 +85,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    }
 
     public boolean addParent(ParentModel parentModel) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -138,25 +143,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     {
         int phone;
         SQLiteDatabase db = this.getReadableDatabase();
-        this.userName=username;
+        this.userName = username;
 
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(" SELECT phone FROM Parent WHERE username=? ", new String[] { userName});
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(" SELECT phone FROM Parent WHERE username=? ", new String[]{userName});
         cursor.moveToFirst();
         phone = cursor.getInt(cursor.getColumnIndex("phone"));
         return phone;
     }
 
-    public void setChildId (int p) // setting child id using db
+    public void setChildId(int p) // setting child id using db
     {
-        String c= String.valueOf(p);
+        String c = String.valueOf(p);
         int cID;
         SQLiteDatabase db1 = this.getReadableDatabase();
-        Cursor cursor = db1.rawQuery(" SELECT child_id FROM child WHERE phone=? ", new String[] { c });
+        Cursor cursor = db1.rawQuery(" SELECT child_id FROM child WHERE phone=? ", new String[]{c});
         cursor.moveToFirst();
         cID = cursor.getInt(cursor.getColumnIndex("child_id"));
         ChildModel cm = new ChildModel();
         cm.setChild_id(cID);
-  }
+    }
 
 
 }

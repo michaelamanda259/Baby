@@ -254,16 +254,12 @@
                 android:onClick="resetTotal"/>
 
         </LinearLayout>
-
-
-
-
         <Button
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#A7FFEB"
-            android:gravity="bottom"
+            android:layout_gravity=""
             android:fontFamily="@font/cairo_semibold"
             android:shadowColor="@color/colorPrimaryDark"
             android:text="Enter Manually" />
