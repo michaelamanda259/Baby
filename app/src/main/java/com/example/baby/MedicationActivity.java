@@ -173,7 +173,7 @@ public class MedicationActivity extends AppCompatActivity {
         int childid, quantity;
         boolean success = false;
         if(!validateDate() | !validateTime() | !validateName() | !validateQ()  ){
-            Toast.makeText(MedicationActivity.this,"Error...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MedicationActivity.this,"Enter all details", Toast.LENGTH_SHORT).show();
             return;
         }
         date = editTextDate.getText().toString();
@@ -183,16 +183,15 @@ public class MedicationActivity extends AppCompatActivity {
 
         SessionManagement sessionManagement = new SessionManagement(MedicationActivity.this);
         childid =  sessionManagement.getSessionChild();
-        Toast.makeText(MedicationActivity.this," child_id..."+childid, Toast.LENGTH_SHORT).show();
 
         try {
             success=databaseHelper.addMedName(date,time,medName,quantity,childid);
         } catch (Exception e) {
-            databaseHelper.addDiaper("Error","Error","Error",0);
+            databaseHelper.addMedName("Error","Error","Error",0,0);
         }
         if (success)
         {
-            Toast.makeText(MedicationActivity.this,"Success..."+success, Toast.LENGTH_SHORT).show();
+            Toast.makeText(MedicationActivity.this,"Added...?"+success, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MedicationActivity.this, Dashboard.class);
             startActivity(intent);
 

@@ -187,7 +187,7 @@ public class SetBabyDetail extends AppCompatActivity {
             }
 
 
-            startActivity(new Intent(SetBabyDetail.this, Dashboard.class));
+            startActivity(new Intent(SetBabyDetail.this, LoginActivity.class));
 
         }
     }

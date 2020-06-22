@@ -14,7 +14,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "myDB.db";
 
     private static final String DIAPER = "diaper";
-    private static final String FEEDING = "feding";
+    private static final String FEEDINGBOTTLE = "feedingbottle";
+    private static final String FEEDINGNURSING = "feedingnursing";
+    private static final String FEEDINGSOLIDS = "feedingsolids";
+
     private static final String MEDICATION = "medication";
     private static final String NOTE = "notes";
     private static final String PUMPING = "pumping";
@@ -53,13 +56,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IF NOT EXISTS diaper (diaper_id INTEGER PRIMARY KEY AUTOINCREMENT,change_time TIME,date DATE,status TEXT, phone INTEGER, FOREIGN KEY(phone) REFERENCES child(phone))");
 
         db.execSQL("CREATE TABLE IF NOT EXISTS feedingbottle (feedingb_id INTEGER PRIMARY KEY AUTOINCREMENT, phone INTEGER, date DATE,time TIME,type TEXT,quantity INTEGER, FOREIGN KEY(phone) REFERENCES child (phone))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS feedingnursing (feedingn_id INTEGER PRIMARY KEY AUTOINCREMENT, phone INTEGER, left_time INTEGER, right_time INTEGER,total_time INTEGER, date DATE, time TIME,FOREIGN KEY(phone) REFERENCES child (phone))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS feedingnursing (feedingn_id INTEGER PRIMARY KEY AUTOINCREMENT, phone INTEGER, left_time TIME, right_time TIME,total_time TIME, date DATE, time TIME,FOREIGN KEY(phone) REFERENCES child (phone))");
         db.execSQL("CREATE TABLE IF NOT EXISTS feedingsolids (feedings_id INTEGER PRIMARY KEY AUTOINCREMENT, phone INTEGER, date DATE,quantity INTEGER,time TIME,food_content text, FOREIGN KEY(phone) REFERENCES child (phone))");
 
         db.execSQL("CREATE TABLE IF NOT EXISTS medication (medication_id INTEGER PRIMARY KEY AUTOINCREMENT, phone INTEGER,date DATE, time TIME, dosage INTEGER, med_name TEXT, FOREIGN KEY(phone) REFERENCES child(phone))");
         db.execSQL("CREATE TABLE IF NOT EXISTS sleep (sleep_id INTEGER PRIMARY KEY AUTOINCREMENT, date DATE,start_time TIME, end_time TIME,total TIME, phone INTEGER, FOREIGN KEY(phone) REFERENCES child (phone))");
         db.execSQL("CREATE TABLE IF NOT EXISTS notes (note_id INTEGER PRIMARY KEY AUTOINCREMENT,date DATE, time TIME, text TEXT, " + PHONE + " INTEGER, FOREIGN KEY(phone) REFERENCES " + PARENT + "(phone))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS pumping (pumping_id INTEGER PRIMARY KEY AUTOINCREMENT, total_quantity INTEGER, date DATE,time TIME, left_time TIME, right_time TIME, left_quantity INTEGER, right_quantity INTEGER, " + PHONE + " INTEGER, FOREIGN KEY(phone) REFERENCES " + PARENT + "(phone))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS pumping (pumping_id INTEGER PRIMARY KEY AUTOINCREMENT,  date DATE,time TIME, left_time TIME, right_time TIME,total_time TIME,total_quantity INTEGER, left_quantity INTEGER, right_quantity INTEGER, " + PHONE + " INTEGER, FOREIGN KEY(phone) REFERENCES " + PARENT + "(phone))");
     }
 
     @Override
@@ -89,8 +92,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String phone1 = String.valueOf(phone);
 
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM Parent WHERE phone = ?",new String[]{phone1});
-        return cursor;
+        Cursor cursor1 = sqLiteDatabase.rawQuery("SELECT * FROM Parent WHERE phone = ?",new String[]{phone1});
+        return cursor1;
     }
 
     public Cursor childData(int child_id) {
@@ -179,6 +182,80 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public boolean addBottleFeeding(String date, String time, String type, int quantity, int child_id) {
+        SQLiteDatabase sql = this.getWritableDatabase();
+        ContentValues cv =  new ContentValues();
+        cv.put("time",time);
+        cv.put("date",date);
+        cv.put("type",type);
+        cv.put("quantity",quantity);
+        cv.put("phone",child_id);
 
+        long insert = sql.insert(FEEDINGBOTTLE,null,cv);
+        if (insert == -1) return false;
+        else return true;
+    }
 
+    public boolean addSolidFeeding(String date, String time, String food_content, int quantity, int child_id) {
+        SQLiteDatabase sql = this.getWritableDatabase();
+        ContentValues cv =  new ContentValues();
+        cv.put("time",time);
+        cv.put("date",date);
+        cv.put("food_content",food_content);
+        cv.put("quantity",quantity);
+        cv.put("phone",child_id);
+
+        long insert = sql.insert(FEEDINGSOLIDS,null,cv);
+        if (insert == -1) return false;
+        else return true;
+    }
+
+    public boolean addSleep(String date, String start_time, String end_time, String total, int child_id) {
+        SQLiteDatabase sql = this.getWritableDatabase();
+        ContentValues cv =  new ContentValues();
+        cv.put("date",date);
+        cv.put("start_time",start_time);
+        cv.put("end_time",end_time);
+        cv.put("total",total);
+        cv.put("phone",child_id);
+
+        long insert = sql.insert(SLEEP,null,cv);
+        if (insert == -1) return false;
+        else return true;
+    }
+
+    public boolean addBreastFeeding(String date, String time, String lefttime, String righttime, String totaltime, int child_id) {
+        SQLiteDatabase sql = this.getWritableDatabase();
+        ContentValues cv =  new ContentValues();
+        cv.put("time",time);
+        cv.put("date",date);
+        cv.put("left_time",lefttime);
+        cv.put("right_time",righttime);
+        cv.put("total_time",totaltime);
+        cv.put("phone",child_id);
+
+        long insert = sql.insert(FEEDINGNURSING,null,cv);
+        if (insert == -1) return false;
+        else return true;
+
+    }
+
+    public boolean addPumping(String date, String time, String lefttime, String righttime, String totaltime, int leftQ, int rightQ, int totalQ, int phone) {
+        SQLiteDatabase sql = this.getWritableDatabase();
+        ContentValues cv =  new ContentValues();
+        cv.put("time",time);
+        cv.put("date",date);
+        cv.put("left_time",lefttime);
+        cv.put("right_time",righttime);
+        cv.put("total_time",totaltime);
+        cv.put("right_time",rightQ);
+        cv.put("left_quantity",leftQ);
+        cv.put("total_quantity",totalQ);
+
+        cv.put("phone",phone);
+
+        long insert = sql.insert(PUMPING,null,cv);
+        if (insert == -1) return false;
+        else return true;
+    }
 }

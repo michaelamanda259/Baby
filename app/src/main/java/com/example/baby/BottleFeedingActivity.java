@@ -24,7 +24,10 @@ public class BottleFeedingActivity extends AppCompatActivity {
     EditText editTextTime,editTextMeasure,editTextDate;
     TimePickerDialog timePickerDialog;
     RadioGroup radioGroup;
+    RadioButton radio;
     ImageButton buttonBack,buttonSubmit;
+    DatabaseHelper databaseHelper;
+    String selectedRadioButtonText;
 
 public String getCurrentDate(){
     Calendar c = Calendar.getInstance();
@@ -42,7 +45,7 @@ public String getCurrentDate(){
 
         editTextDate = findViewById(R.id.et_date);
         editTextTime = findViewById(R.id.et_time);
-        editTextMeasure = findViewById(R.id.et_measure);
+        editTextMeasure = findViewById(R.id.et_measure1);
         radioGroup = findViewById(R.id.rg_milkType);
         buttonBack = findViewById(R.id.cancel_button);
         buttonSubmit = findViewById(R.id.confirm_button);
@@ -93,20 +96,6 @@ public String getCurrentDate(){
           }
       });
 
-        //submit button
-        buttonSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int radioButtonID = radioGroup.getCheckedRadioButtonId();
-                if (radioButtonID == -1){
-                    Toast.makeText(BottleFeedingActivity.this, "Select what you are feeding...", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    RadioButton radioButton = (RadioButton)radioGroup.findViewById(radioButtonID);
-                    Toast.makeText(BottleFeedingActivity.this,radioButton.getText(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
     }
 //time
@@ -137,6 +126,86 @@ public String getCurrentDate(){
             }
         },hourOfDay,minute,false);
         timePickerDialog.show();
+    }
+
+    private Boolean validateDate() {
+        String val = editTextDate.getText().toString();
+
+        if (val.isEmpty()) {
+            editTextDate.setError("Field can not be empty");
+            return false;
+        } else {
+            editTextDate.setError(null);
+//            editTextDate.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private Boolean validateTime() {
+        String val = editTextTime.getText().toString();
+
+        if (val.isEmpty() ) {
+            editTextTime.setError("Field can not be empty");
+            return false;
+        } else {
+            editTextTime.setError(null);
+            return true;
+        }
+    }
+
+    private Boolean validateType(){
+    int val = radioGroup.getCheckedRadioButtonId();
+    if (val == -1){
+        return false;
+    }
+    else{
+        radio =  findViewById(val);
+        return true;
+    }
+    }
+
+    private Boolean validateQ(){
+        String val2 = editTextMeasure.getText().toString();
+
+        if (val2.isEmpty()  ) {
+            editTextMeasure.setError("Field can not be empty");
+            return false;
+        } else {
+            editTextMeasure.setError(null);
+            return true;
+        }
+    }
+
+    public void saveData(View view) {
+        databaseHelper = new DatabaseHelper(this);
+        String type, date, time;
+        int childid, quantity;
+        boolean success = false;
+        if (!validateDate() | !validateTime() | !validateType() | !validateQ()) {
+            Toast.makeText(this, "Enter all details...", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+        date = editTextDate.getText().toString();
+        time = editTextTime.getText().toString();
+        type = radio.getText().toString();
+        quantity = Integer.parseInt(editTextMeasure.getText().toString());
+        SessionManagement sessionManagement = new SessionManagement(this);
+        childid =  sessionManagement.getSessionChild();
+
+
+        try {
+            success=databaseHelper.addBottleFeeding(date,time,type,quantity,childid);
+        } catch (Exception e) {
+            databaseHelper.addBottleFeeding("Error","Error","Error",0,0);
+        }
+        if (success)
+        {
+            Toast.makeText(this,"Added...?"+success, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, Dashboard.class);
+            startActivity(intent);
+
+        }
     }
 
 }

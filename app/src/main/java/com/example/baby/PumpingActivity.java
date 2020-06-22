@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,6 +28,7 @@ public class PumpingActivity extends AppCompatActivity {
 
     TimePickerDialog timePickerDialog;
     EditText editTextTime,editTextDate;
+    DatabaseHelper databaseHelper;
 
 
     //Chronometer
@@ -47,7 +49,6 @@ public class PumpingActivity extends AppCompatActivity {
         return formattedDate;
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +67,6 @@ public class PumpingActivity extends AppCompatActivity {
 
         buttonBack = findViewById(R.id.cancel_button);
         buttonSubmit = findViewById(R.id.confirm_button);
-
-
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,8 +164,6 @@ public class PumpingActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
-
-
     public void leftStartChronometer (View view){
         if (!running){
             chronometer_l.setBase(SystemClock.elapsedRealtime() - pauseOffSetLeft);
@@ -262,4 +259,95 @@ public class PumpingActivity extends AppCompatActivity {
     }
 
 
+
+    private Boolean validateDate() {
+        String val = editTextDate.getText().toString();
+
+        if (val.isEmpty()) {
+            editTextDate.setError("Field can not be empty");
+            return false;
+        } else {
+            editTextDate.setError(null);
+//            editTextDate.setErrorEnabled(false);
+            return true;
+        }
+    }
+    private Boolean validateTime() {
+        String val = editTextTime.getText().toString();
+
+        if (val.isEmpty() ) {
+            editTextTime.setError("Field can not be empty");
+            return false;
+        } else {
+            editTextTime.setError(null);
+            return true;
+        }
+    }
+    private Boolean validateR() {
+        String val = editTextRight.getText().toString();
+
+        if (val.isEmpty() ) {
+            editTextRight.setError("Field can not be empty");
+            return false;
+        } else {
+            editTextRight.setError(null);
+            return true;
+        }
+    }
+    private Boolean validateL() {
+        String val = editTextLeft.getText().toString();
+
+        if (val.isEmpty() ) {
+            editTextLeft.setError("Field can not be empty");
+            return false;
+        } else {
+            editTextLeft.setError(null);
+            return true;
+        }
+    }
+
+    public void saveData(View view) {
+        databaseHelper = new DatabaseHelper(this);
+        String  date, time ,lefttime,righttime, totaltime;
+        int rightQ,leftQ,totalQ;
+        int phone;
+        boolean success = false;
+        if (!validateDate() | !validateTime() | !validateL() | !validateR() ) {
+            Toast.makeText(this, "Enter all details...", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+        date = editTextDate.getText().toString();
+        time = editTextTime.getText().toString();
+        lefttime = (String) chronometer_l.getText();
+        righttime = (String) chronometer_r.getText();
+        totaltime = (String) chronometer_t.getText();
+        leftQ = Integer.parseInt(editTextLeft.getText().toString());
+        rightQ = Integer.parseInt(editTextRight.getText().toString());
+        totalQ = Integer.parseInt(editTextTotal.getText().toString());
+
+        if (totaltime.matches("00:00"))
+        {
+            Toast.makeText(this, " Start timer", Toast.LENGTH_SHORT).show();
+
+        }
+        else {
+            SessionManagement sessionManagement = new SessionManagement(this);
+            String username = sessionManagement.getSession();
+
+            phone = databaseHelper.parentPhone(username);
+            try {
+                success=databaseHelper.addPumping(date,time,lefttime,righttime,totaltime,leftQ,rightQ,totalQ,phone);
+            } catch (Exception e) {
+                databaseHelper.addPumping("Error","Error","Error","Error","Error",0,0,0,0);
+            }
+            if (success)
+            {
+                Toast.makeText(this,"Added...?"+success, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, Dashboard.class);
+                startActivity(intent);
+
+            }
+        }
+    }
 }

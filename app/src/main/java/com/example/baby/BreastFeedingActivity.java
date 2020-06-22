@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,10 +29,7 @@ public class BreastFeedingActivity extends AppCompatActivity {
     EditText editTextTime,editTextDate;
     TimePickerDialog timePickerDialog;
     ImageButton buttonBack,buttonSubmit;
-
-
-
-
+    DatabaseHelper databaseHelper;
 
     private boolean running;
 
@@ -185,7 +183,6 @@ public class BreastFeedingActivity extends AppCompatActivity {
 
         running = false;
     }
-
     public void chooseTime(View view) {
         Calendar calendar = Calendar.getInstance();
         int hourOfDay=calendar.get(Calendar.HOUR);
@@ -223,5 +220,70 @@ public class BreastFeedingActivity extends AppCompatActivity {
 
 
         return formattedDate;
+    }
+
+    private Boolean validateDate() {
+        String val = editTextDate.getText().toString();
+
+        if (val.isEmpty()) {
+            editTextDate.setError("Field can not be empty");
+            return false;
+        } else {
+            editTextDate.setError(null);
+//            editTextDate.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private Boolean validateTime() {
+        String val = editTextTime.getText().toString();
+
+        if (val.isEmpty() ) {
+            editTextTime.setError("Field can not be empty");
+            return false;
+        } else {
+            editTextTime.setError(null);
+            return true;
+        }
+    }
+
+    public void saveData(View view) {
+        databaseHelper = new DatabaseHelper(this);
+        String  date, time ,lefttime,righttime, totaltime;
+        int childid;
+        boolean success = false;
+        if (!validateDate() | !validateTime()) {
+            Toast.makeText(this, "Select time...", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+        date = editTextDate.getText().toString();
+        time = editTextTime.getText().toString();
+        lefttime = (String) chronometer_l.getText();
+        righttime = (String) chronometer_r.getText();
+        totaltime = (String) chronometer_t.getText();
+        if (totaltime.matches("00:00"))
+        {
+            Toast.makeText(this, " Start timer", Toast.LENGTH_SHORT).show();
+
+        }
+        else
+        {
+
+
+        SessionManagement sessionManagement = new SessionManagement(this);
+        childid =  sessionManagement.getSessionChild();
+        try {
+            success=databaseHelper.addBreastFeeding(date,time,lefttime,righttime,totaltime,childid);
+        } catch (Exception e) {
+            databaseHelper.addBreastFeeding("Error","Error","Error","Error","Error",0);
+        }
+        if (success) {
+            Toast.makeText(this, "Added...?" + success, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, Dashboard.class);
+            startActivity(intent);
+        }
+
+        }
     }
 }

@@ -94,7 +94,6 @@ public class SleepActivity extends AppCompatActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
@@ -256,39 +255,33 @@ public class SleepActivity extends AppCompatActivity {
     public void saveData(View view)
     {
         databaseHelper = new DatabaseHelper(SleepActivity.this);
-        String status ,date , time;
+        String start_time,end_time ,date, total;
         int childid;
         boolean success = false;
         if(!validateDate() | !validateStartTime() | !validateEndTime()  ){
-            Toast.makeText(SleepActivity.this,"SELECT AN OPTION...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SleepActivity.this,"Select time...", Toast.LENGTH_SHORT).show();
 
             return;
         }
-/*
-        int val = radioGroup.getCheckedRadioButtonId();
-        radioButton = findViewById(val);
-        status = (String) radioButton.getText();
+        start_time =etTimeStart.getText().toString();
+        end_time =etTimeStart.getText().toString();
+        total = etTimeTotal.getText().toString();
         date = editTextDate.getText().toString();
-        time = editTextTime.getText().toString();
-*/
 
-    /*    SessionManagement sessionManagement = new SessionManagement(SleepActivity.this);
+        SessionManagement sessionManagement = new SessionManagement(SleepActivity.this);
         childid =  sessionManagement.getSessionChild();
-        Toast.makeText(SleepActivity.this," child_id..."+childid, Toast.LENGTH_SHORT).show();
 
         try {
-            success=databaseHelper.addDiaper(date,time,status,childid);
-            Toast.makeText(DiaperActivity.this,"Added", Toast.LENGTH_SHORT).show();
+            success= databaseHelper.addSleep(date,start_time,end_time,total,childid);
         } catch (Exception e) {
-            databaseHelper.addDiaper("Error","Error","Error",0);
+            databaseHelper.addSleep("Error","Error","Error","Error",0);
         }
         if (success)
         {
-            Toast.makeText(DiaperActivity.this,"Success..."+success, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(DiaperActivity.this, Dashboard.class);
+            Toast.makeText(this,"Added...?"+success, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, Dashboard.class);
             startActivity(intent);
 
         }
-*/
     }
 }

@@ -52,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Boolean validateUserName() {
         String val = userName.getEditText().getText().toString();
-        String noWhiteSpace= "\\A\\w{4,20}\\z";
+        String noWhiteSpace= "[^\\s-]";
 
         if (val.isEmpty()) {
             userName.setError("Field can not be empty");
@@ -62,12 +62,11 @@ public class RegisterActivity extends AppCompatActivity {
             userName.setError("Username too long");
             return false;
         }
-        else if (!val.matches(noWhiteSpace))
+        else if (val.contains(" "))
         {
             userName.setError("Username can not contain space");
             return false;
         }
-
         else {
             userName.setError(null);
             userName.setErrorEnabled(false);
@@ -103,11 +102,17 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Boolean validatePhoneNumber() {
         String val = userPhoneNumber.getEditText().getText().toString();
-
+        long phone1 = Long.parseLong(userPhoneNumber.getEditText().getText().toString());
         if (val.isEmpty()) {
             userPhoneNumber.setError("Field can not be empty");
             return false;
-        } else {
+        }
+        else if(val.length()>10){
+            userPhoneNumber.setError("Number invaild.. too long");
+            return false;
+        }
+        else
+            {
             userPhoneNumber.setError(null);
             userPhoneNumber.setErrorEnabled(false);
             return true;
@@ -153,7 +158,7 @@ public class RegisterActivity extends AppCompatActivity {
         String Name = name.getEditText().getText().toString();
         String UserName = userName.getEditText().getText().toString();
         String email = userEmail.getEditText().getText().toString();
-        long phone = Integer.parseInt(userPhoneNumber.getEditText().getText().toString());
+        long phone = Long.parseLong(userPhoneNumber.getEditText().getText().toString());
         String password = userPassword.getEditText().getText().toString();
         ParentModel parentModel;
 
@@ -169,7 +174,7 @@ public class RegisterActivity extends AppCompatActivity {
         Toast.makeText(RegisterActivity.this,"Success"+ success, Toast.LENGTH_SHORT).show();
         if (success )
         {
-            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            Intent intent = new Intent(RegisterActivity.this, SetBabyDetail.class);
             startActivity(intent);
 
         }

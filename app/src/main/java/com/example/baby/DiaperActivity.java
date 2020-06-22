@@ -161,7 +161,7 @@ public class DiaperActivity extends AppCompatActivity {
         int childid;
         boolean success = false;
         if(!validateDate() | !validateTime() | !validateStaus()  ){
-            Toast.makeText(DiaperActivity.this,"SELECT AN OPTION...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(DiaperActivity.this,"Enter all details...", Toast.LENGTH_SHORT).show();
 
             return;
         }
@@ -173,7 +173,6 @@ public class DiaperActivity extends AppCompatActivity {
 
         SessionManagement sessionManagement = new SessionManagement(DiaperActivity.this);
         childid =  sessionManagement.getSessionChild();
-        Toast.makeText(DiaperActivity.this," child_id..."+childid, Toast.LENGTH_SHORT).show();
 
         try {
             success=databaseHelper.addDiaper(date,time,status,childid);
@@ -182,7 +181,7 @@ public class DiaperActivity extends AppCompatActivity {
         }
         if (success)
         {
-            Toast.makeText(DiaperActivity.this,"Success..."+success, Toast.LENGTH_SHORT).show();
+            Toast.makeText(DiaperActivity.this,"Added...?"+success, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(DiaperActivity.this, Dashboard.class);
             startActivity(intent);
 

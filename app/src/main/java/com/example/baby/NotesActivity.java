@@ -174,10 +174,10 @@ public class NotesActivity extends AppCompatActivity {
         try {
             success=databaseHelper.addNote(date,time,note,phone);
         } catch (Exception e) {
-            databaseHelper.addDiaper("Error","Error","Error",0);
+            databaseHelper.addNote("Error","Error","Error",0);
         }
         if (success) {
-            Toast.makeText(NotesActivity.this, "Success..." + success, Toast.LENGTH_SHORT).show();
+            Toast.makeText(NotesActivity.this, "Note Saved...?" + success, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(NotesActivity.this, Dashboard.class);
             startActivity(intent);
         }
