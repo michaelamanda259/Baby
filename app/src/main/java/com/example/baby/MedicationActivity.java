@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,7 +21,8 @@ public class MedicationActivity extends AppCompatActivity {
 
     ImageButton buttonBack,buttonSubmit;
     TimePickerDialog timePickerDialog;
-    EditText editTextTime,editTextDate;
+    EditText editTextTime,editTextDate, editName , editQ;
+    DatabaseHelper databaseHelper;
 
     public String getCurrentDate(){
         Calendar c = Calendar.getInstance();
@@ -40,6 +42,8 @@ public class MedicationActivity extends AppCompatActivity {
 
         editTextDate = findViewById(R.id.et_date);
         editTextTime = findViewById(R.id.et_time);
+        editName = findViewById(R.id.et_nameofM);
+        editQ = findViewById(R.id.et_quantityofM);
         buttonBack = findViewById(R.id.cancel_button);
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +83,7 @@ public class MedicationActivity extends AppCompatActivity {
             }
         });
     }
+
     public void chooseTime(View view) {
 
         Calendar calendar = Calendar.getInstance();
@@ -106,5 +111,96 @@ public class MedicationActivity extends AppCompatActivity {
             }
         },hourOfDay,minute,false);
         timePickerDialog.show();
+    }
+
+
+    private Boolean validateDate() {
+        String val = editTextDate.getText().toString();
+
+        if (val.isEmpty()) {
+            editTextDate.setError("Field can not be empty");
+            return false;
+        } else {
+            editTextDate.setError(null);
+//            editTextDate.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private Boolean validateTime() {
+        String val = editTextTime.getText().toString();
+
+        if (val.isEmpty()) {
+            editTextTime.setError("Field can not be empty");
+            return false;
+        } else {
+            editTextTime.setError(null);
+//            editTextDate.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private Boolean validateName(){
+        String val = editName.getText().toString();
+
+        if (val.isEmpty()) {
+            editName.setError("Field can not be empty");
+            return false;
+        } else {
+            editName.setError(null);
+//            editTextDate.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private Boolean validateQ(){
+        String val = editQ.getText().toString();
+
+        if (val.isEmpty()) {
+            editQ.setError("Field can not be empty");
+            return false;
+        } else {
+            editQ.setError(null);
+            return true;
+        }
+    }
+
+
+    public void saveData(View view)
+    {
+        databaseHelper = new DatabaseHelper(MedicationActivity.this);
+        String medName, date , time;
+        int childid, quantity;
+        boolean success = false;
+        if(!validateDate() | !validateTime() | !validateName() | !validateQ()  ){
+            Toast.makeText(MedicationActivity.this,"Error...", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        date = editTextDate.getText().toString();
+        time = editTextTime.getText().toString();
+        medName = editName.getText().toString();
+        quantity = Integer.parseInt(editQ.getText().toString());
+
+        SessionManagement sessionManagement = new SessionManagement(MedicationActivity.this);
+        childid =  sessionManagement.getSessionChild();
+        Toast.makeText(MedicationActivity.this," child_id..."+childid, Toast.LENGTH_SHORT).show();
+
+        try {
+            success=databaseHelper.addMedName(date,time,medName,quantity,childid);
+        } catch (Exception e) {
+            databaseHelper.addDiaper("Error","Error","Error",0);
+        }
+        if (success)
+        {
+            Toast.makeText(MedicationActivity.this,"Success..."+success, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MedicationActivity.this, Dashboard.class);
+            startActivity(intent);
+
+        }
+
+        /*
+
+    */
+
     }
 }

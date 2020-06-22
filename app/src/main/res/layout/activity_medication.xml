@@ -26,11 +26,12 @@
             android:id="@+id/confirm_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="20dp"
-            android:layout_weight="1"
             android:layout_gravity="right"
+            android:layout_weight="1"
             android:background="#CCFF90"
-            android:src="@drawable/ic_done"/>
+            android:onClick="saveData"
+            android:padding="20dp"
+            android:src="@drawable/ic_done" />
     </LinearLayout>
 
     <LinearLayout
@@ -95,10 +96,12 @@
                 android:layout_marginTop="20dp"
                 android:textSize="20dp"
                 android:text="Name of the Medicine:"/>
+
             <EditText
+                android:id="@+id/et_nameofM"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Write here"/>
+                android:hint="Write here" />
         </LinearLayout>
 
         <LinearLayout
@@ -109,7 +112,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/et_quantity"
+                android:id="@+id/et_quantityofM"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Quantity"
@@ -120,8 +123,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
-                android:textSize="20dp"
-                android:text="g"/>
+                android:text="ml/g"
+                android:textSize="20dp" />
         </LinearLayout>
 
 

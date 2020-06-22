@@ -177,7 +177,6 @@ public class DiaperActivity extends AppCompatActivity {
 
         try {
             success=databaseHelper.addDiaper(date,time,status,childid);
-            Toast.makeText(DiaperActivity.this,"Added", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             databaseHelper.addDiaper("Error","Error","Error",0);
         }

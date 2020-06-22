@@ -153,7 +153,7 @@ public class RegisterActivity extends AppCompatActivity {
         String Name = name.getEditText().getText().toString();
         String UserName = userName.getEditText().getText().toString();
         String email = userEmail.getEditText().getText().toString();
-        int phone = Integer.parseInt(userPhoneNumber.getEditText().getText().toString());
+        long phone = Integer.parseInt(userPhoneNumber.getEditText().getText().toString());
         String password = userPassword.getEditText().getText().toString();
         ParentModel parentModel;
 

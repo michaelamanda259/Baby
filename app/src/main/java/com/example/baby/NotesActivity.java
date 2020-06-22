@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,7 +21,9 @@ public class NotesActivity extends AppCompatActivity {
 
     ImageButton buttonBack,buttonSubmit;
     TimePickerDialog timePickerDialog;
-    EditText editTextTime,editTextDate;
+    EditText editTextTime,editTextDate, editNote;
+    DatabaseHelper databaseHelper;
+    SessionManagement sm;
 
 
     public String getCurrentDate(){
@@ -40,6 +43,7 @@ public class NotesActivity extends AppCompatActivity {
 
         editTextDate = findViewById(R.id.et_date);
         editTextTime = findViewById(R.id.et_time);
+        editNote = findViewById(R.id.et_notes);
         buttonBack = findViewById(R.id.cancel_button);
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +83,7 @@ public class NotesActivity extends AppCompatActivity {
             }
         });
     }
+
     public void chooseTime(View view) {
 
         Calendar calendar = Calendar.getInstance();
@@ -107,4 +112,78 @@ public class NotesActivity extends AppCompatActivity {
         },hourOfDay,minute,false);
         timePickerDialog.show();
     }
+
+    private Boolean validateDate() {
+        String val = editTextDate.getText().toString();
+
+        if (val.isEmpty()) {
+            editTextDate.setError("Field can not be empty");
+            return false;
+        } else {
+            editTextDate.setError(null);
+//            editTextDate.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private Boolean validateTime() {
+        String val = editTextTime.getText().toString();
+
+        if (val.isEmpty()) {
+            editTextTime.setError("Field can not be empty");
+            return false;
+        } else {
+            editTextTime.setError(null);
+//            editTextDate.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private Boolean writeNote()
+    {
+        String val = editNote.getText().toString();
+
+        if (val.isEmpty()) {
+            editNote.setError("Field can not be empty");
+            return false;
+        } else {
+            editNote.setError(null);
+            return true;
+        }
+    }
+
+    public void saveData(View view)
+    {
+        databaseHelper = new DatabaseHelper(NotesActivity.this);
+        String note ,date , time;
+        int childid;
+        boolean success = false;
+        if(!validateDate() | !validateTime() | !writeNote() ){
+            Toast.makeText(NotesActivity.this,"Write something...", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+        note = editNote.getText().toString();
+        date = editTextDate.getText().toString();
+        time = editTextTime.getText().toString();
+        sm = new SessionManagement(NotesActivity.this);
+        String username = sm.getSession();
+
+        int phone = databaseHelper.parentPhone(username);
+
+        try {
+            success=databaseHelper.addNote(date,time,note,phone);
+        } catch (Exception e) {
+            databaseHelper.addDiaper("Error","Error","Error",0);
+        }
+        if (success) {
+            Toast.makeText(NotesActivity.this, "Success..." + success, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(NotesActivity.this, Dashboard.class);
+            startActivity(intent);
+        }
+
+
+    }
+
+
 }

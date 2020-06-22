@@ -128,6 +128,7 @@
                     }
                     else
                     {
+                        sessionManagement.saveSession(parentModel);
                         Intent intent = new Intent(LoginActivity.this, Dashboard.class);
                         startActivity(intent);
                     }

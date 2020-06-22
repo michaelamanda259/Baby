@@ -5,9 +5,9 @@ CREATE TABLE IF NOT EXISTS " + PARENT + "(" + NAME + " text , " + USERNAME + " t
 public class ParentModel {
 
     private String name, username, email, password;
-    private int phoneNumber;
+    private long phoneNumber;
 
-    public ParentModel(String name, String username, String email, int phoneNumber,String password) {
+    public ParentModel(String name, String username, String email, long phoneNumber,String password) {
         this.name = name;
         this.username = username;
         this.email = email;
@@ -51,7 +51,7 @@ public class ParentModel {
         this.password = password;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -71,7 +71,7 @@ public class ParentModel {
         return password;
     }
 
-    public int getPhoneNumber() {
+    public long getPhoneNumber() {
         return phoneNumber;
     }
 }
