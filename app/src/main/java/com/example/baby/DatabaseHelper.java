@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import static com.google.common.net.HttpHeaders.FROM;
+
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "myDB.db";
@@ -94,6 +96,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor1 = sqLiteDatabase.rawQuery("SELECT * FROM Parent WHERE phone = ?",new String[]{phone1});
         return cursor1;
+    }
+
+    public Cursor recentAcitivty()
+    {
+        Cursor cursor;
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        cursor =
+                sqLiteDatabase.rawQuery("SELECT change_time , date, status FROM diaper INNER JOIN child ON diaper.phone = child.phone WHERE diaper.date = ? and child.phone = ?",new String[]{"23-Jun-2020","98765"});
+        return cursor;
     }
 
     public Cursor childData(int child_id) {

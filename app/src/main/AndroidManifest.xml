@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChildProfile"></activity>
+        <activity android:name=".Recent"></activity>
+        <activity android:name=".ChildProfile" />
         <activity android:name=".UserProfile" />
         <activity android:name=".SetBabyDetail" />
         <activity
@@ -20,7 +21,7 @@
         <!-- android:label="@string/title_activity_tab_feeding" -->
         <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
         <!-- <activity android:name=".ChronometerActivity" /> -->
-         <activity android:name=".NotesActivity" />
+        <activity android:name=".NotesActivity" />
         <activity android:name=".MedicationActivity" />
         <activity android:name=".SleepActivity" />
         <activity android:name=".PumpingActivity" />

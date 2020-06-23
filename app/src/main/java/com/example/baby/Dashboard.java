@@ -179,7 +179,10 @@ public class  Dashboard extends AppCompatActivity implements View.OnClickListene
                 menu.findItem(R.id.nav_profile).setVisible(false);
                 menu.findItem(R.id.nav_login).setVisible(true);
                 break;*/
-            case R.id.nav_share: Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show(); break;
+            case R.id.nav_share:
+                Intent in1 = new Intent(Dashboard.this,Recent.class);
+                startActivity(in1);
+                break;
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
