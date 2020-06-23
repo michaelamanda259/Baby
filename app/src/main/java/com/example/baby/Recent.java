@@ -17,7 +17,8 @@ public class Recent extends AppCompatActivity {
     ListView listView;
     Cursor cursor;
     DatabaseHelper databaseHelper = new DatabaseHelper(this);
-    String changeTime,status;
+    String changeTime,status,date;
+    int child_id;
     List<String> list = new ArrayList<>();
     SimpleDateFormat sdf;
 
@@ -27,16 +28,17 @@ public class Recent extends AppCompatActivity {
         setContentView(R.layout.activity_recent);
         databaseHelper = new DatabaseHelper(this);
         listView=(ListView)findViewById(R.id.recent);
-        recentD();
-    }
-    void recentD ()
-    {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
-        String date = sdf.format(new Date());
+        date = sdf.format(new Date());
 
         SessionManagement sessionManagement = new SessionManagement(this);
-        int child_id =  sessionManagement.getSessionChild();
+        child_id =  sessionManagement.getSessionChild();
 
+        recentD();
+    }
+
+    void recentD ()
+    {
         cursor = databaseHelper.recentAcitivty(date ,child_id);
         if (cursor.getCount() == 0 )
         {
@@ -47,13 +49,14 @@ public class Recent extends AppCompatActivity {
             do {
                 changeTime = cursor.getString(0);
                 status = cursor.getString(2);
-                String a = changeTime + " "+ status;
-                list.add(a);
+                list.add(changeTime +" "+ status);
                 display(list);
             }while (cursor.moveToNext());
         }
-
     }
+
+
+
     void display(List<String> listArray)
     {
         List<String> lI = listArray;

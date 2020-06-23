@@ -105,12 +105,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Cursor childData(int child_id) {
-        String child_id1 = String.valueOf(child_id);
-
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM child WHERE phone = ?",new String[]{child_id1});
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM child WHERE phone = ?",new String[]{String.valueOf(child_id)});
         return cursor;
-
     }
 
     public boolean addParent(ParentModel parentModel) {
