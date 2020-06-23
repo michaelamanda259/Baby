@@ -40,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final int VERSION = 1;
     private String userName;
     public int phone;
+    Cursor cursor;
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -70,7 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean login(String username, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(" SELECT * FROM Parent WHERE username=? and password=?", new String[]{username, password});
+        cursor = db.rawQuery(" SELECT * FROM Parent WHERE username=? and password=?", new String[]{username, password});
         if (cursor.getCount() > 0) return true;
         else return false;
     }
@@ -81,7 +82,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         this.userName = username;
 
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery(" SELECT phone FROM Parent WHERE username=? ", new String[]{userName});
+        cursor = db.rawQuery(" SELECT phone FROM Parent WHERE username=? ", new String[]{userName});
         cursor.moveToFirst();
         phone = cursor.getInt(cursor.getColumnIndex("phone"));
         return phone;
@@ -95,14 +96,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor1;
     }
 
-    public Cursor recentAcitivty(String date, int child_id)
-    {
-        Cursor cursor;
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        cursor =
-                sqLiteDatabase.rawQuery("SELECT change_time , date, status FROM diaper INNER JOIN child ON diaper.phone = child.phone WHERE diaper.date = ? and child.phone = ? ORDER by diaper.diaper_id",new String[]{date, String.valueOf(child_id)});
-        return cursor;
-    }
 
     public Cursor childData(int child_id) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
@@ -262,5 +255,64 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long insert = sql.insert(PUMPING,null,cv);
         if (insert == -1) return false;
         else return true;
+    }
+
+    public Cursor recentActivitySleep(String date, int child_id) {
+        Cursor cursor;
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        cursor =
+                sqLiteDatabase.rawQuery("SELECT start_time , end_time, total FROM sleep INNER JOIN child ON sleep.phone = sleep.phone WHERE sleep.date = ? and child.phone = ? ORDER by sleep.sleep_id",new String[]{date, String.valueOf(child_id)});
+        return cursor;
+
+    }
+    public Cursor recentAcitvityDiaper(String date, int child_id)
+    {
+        Cursor cursor;
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        cursor =
+                sqLiteDatabase.rawQuery("SELECT change_time , date, status FROM diaper INNER JOIN child ON diaper.phone = child.phone WHERE diaper.date = ? and child.phone = ? ORDER by diaper.diaper_id",new String[]{date, String.valueOf(child_id)});
+        return cursor;
+    }
+
+    public Cursor recentAcitvityFeedingN(String date, int child_id) {
+        Cursor cursor;
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        cursor =
+                sqLiteDatabase.rawQuery("SELECT time, left_time, right_time ,  total_time FROM feedingnursing INNER JOIN child ON feedingnursing.phone = child.phone WHERE feedingnursing.date = ? and child.phone = ? ORDER by feedingnursing.feedingn_id",new String[]{date, String.valueOf(child_id)});
+        return cursor;
+    }
+
+    public Cursor recentAcitvityFeedingB(String date, int child_id) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        cursor =
+                sqLiteDatabase.rawQuery("SELECT time, type, quantity FROM feedingbottle INNER JOIN child ON feedingbottle.phone = child.phone WHERE feedingbottle.date = ? and child.phone = ? ORDER by feedingbottle.feedingb_id",new String[]{date, String.valueOf(child_id)});
+        return cursor;
+    }
+
+    public Cursor recentAcitvityFeedingS(String date, int child_id) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        cursor =
+                sqLiteDatabase.rawQuery("SELECT time, quantity, food_content FROM feedingsolids INNER JOIN child ON feedingsolids.phone = child.phone WHERE feedingsolids.date = ? and child.phone = ? ORDER by feedingsolids.feedings_id",new String[]{date, String.valueOf(child_id)});
+        return cursor;
+    }
+
+    public Cursor recentAcitivty(String date, int child_id) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        cursor =
+                sqLiteDatabase.rawQuery("SELECT time, dosage, med_name FROM medication INNER JOIN child ON medication.phone = child.phone WHERE medication.date = ? and child.phone = ? ORDER by medication.medication_id",new String[]{date, String.valueOf(child_id)});
+        return cursor;
+    }
+
+    public Cursor recentAcitivtyPumping(String date, int child_id) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        cursor =
+                sqLiteDatabase.rawQuery("SELECT time, total_quantity, total_time FROM pumping INNER JOIN parent ON pumping.phone = parent.phone WHERE pumping.date = ? and parent.phone = ? ORDER by pumping.pumping_id",new String[]{date, String.valueOf(child_id)});
+        return cursor;
+    }
+    public Cursor recentAcitivtyNotes(String date, int child_id) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        cursor =
+                sqLiteDatabase.rawQuery("SELECT time, text FROM notes INNER JOIN parent ON notes.phone = parent.phone WHERE notes.date = ? and parent.phone = ? ORDER by notes.note_id",new String[]{date, String.valueOf(child_id)});
+        return cursor;
     }
 }
