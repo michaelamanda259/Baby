@@ -7,7 +7,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Recent extends AppCompatActivity {
@@ -15,6 +18,8 @@ public class Recent extends AppCompatActivity {
     Cursor cursor;
     DatabaseHelper databaseHelper = new DatabaseHelper(this);
     String changeTime,status;
+    List<String> list = new ArrayList<>();
+    SimpleDateFormat sdf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +31,19 @@ public class Recent extends AppCompatActivity {
     }
     void recentD ()
     {
-        cursor = databaseHelper.recentAcitivty();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+        String date = sdf.format(new Date());
+
+        SessionManagement sessionManagement = new SessionManagement(this);
+        int child_id =  sessionManagement.getSessionChild();
+
+        cursor = databaseHelper.recentAcitivty(date ,child_id);
         if (cursor.getCount() == 0 )
         {
-            Toast.makeText(this,"Error",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"No activities today...",Toast.LENGTH_SHORT).show();
         }
         else {
             cursor.moveToFirst();
-            List<String> list = new ArrayList<>();
             do {
                 changeTime = cursor.getString(0);
                 status = cursor.getString(2);
