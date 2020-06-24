@@ -95,7 +95,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor1;
     }
 
-
     public Cursor childData(int child_id) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM child WHERE phone = ?",new String[]{String.valueOf(child_id)});

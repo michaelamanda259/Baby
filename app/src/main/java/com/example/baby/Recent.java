@@ -32,7 +32,7 @@ public class Recent extends AppCompatActivity {
 
         SessionManagement sessionManagement = new SessionManagement(this);
         child_id =  sessionManagement.getSessionChild();
-
+        recentNote();
         recentDiaper();
         recentSleep();
         recentFeedingN();
@@ -40,7 +40,9 @@ public class Recent extends AppCompatActivity {
         recentFeedingS();
         recentMedication();
         recentPumping();
-        recentNote();
+        display(list);
+
+
 
     }
 
@@ -50,7 +52,7 @@ public class Recent extends AppCompatActivity {
         cursor = databaseHelper.recentAcitvityDiaper(date ,child_id);
         if (cursor.getCount() == 0 )
         {
-            Toast.makeText(this,"No activities today...",Toast.LENGTH_SHORT).show();
+            //nothing
         }
         else {
             cursor.moveToFirst();
@@ -63,14 +65,13 @@ public class Recent extends AppCompatActivity {
         }
     }
 
-
     void recentSleep ()
     {
         String start_Time,end_time, total;
         cursor = databaseHelper.recentActivitySleep(date ,child_id);
         if (cursor.getCount() == 0 )
         {
-            Toast.makeText(this,"No activities today...",Toast.LENGTH_SHORT).show();
+            //nothing
         }
         else {
             cursor.moveToFirst();
@@ -90,7 +91,7 @@ public class Recent extends AppCompatActivity {
         cursor = databaseHelper.recentAcitvityFeedingN(date ,child_id);
         if (cursor.getCount() == 0 )
         {
-            Toast.makeText(this,"No activities today...",Toast.LENGTH_SHORT).show();
+            //nothing
         }
         else {
             cursor.moveToFirst();
@@ -124,7 +125,7 @@ public class Recent extends AppCompatActivity {
         cursor = databaseHelper.recentAcitvityFeedingB(date ,child_id);
         if (cursor.getCount() == 0 )
         {
-            Toast.makeText(this,"No activities today...",Toast.LENGTH_SHORT).show();
+            //nothing
         }
         else {
             cursor.moveToFirst();
@@ -145,7 +146,7 @@ public class Recent extends AppCompatActivity {
         cursor = databaseHelper.recentAcitvityFeedingS(date ,child_id);
         if (cursor.getCount() == 0 )
         {
-            Toast.makeText(this,"No activities today...",Toast.LENGTH_SHORT).show();
+            //nothing
         }
         else {
             cursor.moveToFirst();
@@ -160,14 +161,13 @@ public class Recent extends AppCompatActivity {
         }
     }
 
-
     void recentMedication ()
     {
         String time, dosage, med_name;
         cursor = databaseHelper.recentAcitivty(date ,child_id);
         if (cursor.getCount() == 0 )
         {
-            Toast.makeText(this,"No activities today...",Toast.LENGTH_SHORT).show();
+            //nothing
         }
         else {
             cursor.moveToFirst();
@@ -189,7 +189,7 @@ public class Recent extends AppCompatActivity {
         cursor = databaseHelper.recentAcitivtyPumping(date ,child_id);
         if (cursor.getCount() == 0 )
         {
-            Toast.makeText(this,"No activities today...",Toast.LENGTH_SHORT).show();
+            //nothing
         }
         else {
             cursor.moveToFirst();
@@ -203,14 +203,13 @@ public class Recent extends AppCompatActivity {
         }
     }
 
-
     void recentNote ()
     {
         String time, text;
         cursor = databaseHelper.recentAcitivtyNotes(date ,child_id);
         if (cursor.getCount() == 0 )
         {
-            Toast.makeText(this,"No activities today...",Toast.LENGTH_SHORT).show();
+            //nothing
         }
         else {
             cursor.moveToFirst();
@@ -223,11 +222,18 @@ public class Recent extends AppCompatActivity {
         }
     }
 
-
-
     void display(List<String> listArray)
     {
         List<String> lI = listArray;
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, lI);listView.setAdapter(adapter);
+
+        if (lI.isEmpty())
+        {
+            Toast.makeText(this," qwertyuiopsdfghjxcvbn LI" +lI,Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, lI);listView.setAdapter(adapter);
+        }
+
     }
 }

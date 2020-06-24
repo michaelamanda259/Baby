@@ -164,16 +164,18 @@ public class RegisterActivity extends AppCompatActivity {
 
         try {
             parentModel = new ParentModel(Name,UserName,email,phone,password);
-            Toast.makeText(RegisterActivity.this,"Registered", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             parentModel = new ParentModel("Error","Error","Error",0,"Error");
         }
 
         DatabaseHelper databaseHelper  = new DatabaseHelper(RegisterActivity.this);
+        SessionManagement sessionManagement = new SessionManagement(this);
+
         boolean success = databaseHelper.addParent(parentModel);
-        Toast.makeText(RegisterActivity.this,"Success"+ success, Toast.LENGTH_SHORT).show();
+        Toast.makeText(RegisterActivity.this,"Registered Successfully"+ success, Toast.LENGTH_SHORT).show();
         if (success )
         {
+            sessionManagement.saveSession(parentModel);
             Intent intent = new Intent(RegisterActivity.this, SetBabyDetail.class);
             startActivity(intent);
 
