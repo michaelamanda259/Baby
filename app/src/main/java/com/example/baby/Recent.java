@@ -41,9 +41,6 @@ public class Recent extends AppCompatActivity {
         recentMedication();
         recentPumping();
         display(list);
-
-
-
     }
 
     void recentDiaper ()
