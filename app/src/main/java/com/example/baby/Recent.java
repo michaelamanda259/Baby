@@ -3,7 +3,10 @@ package com.example.baby;
 import androidx.appcompat.app.AppCompatActivity;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,8 +21,10 @@ public class Recent extends AppCompatActivity {
     DatabaseHelper databaseHelper = new DatabaseHelper(this);
     String date;
     int child_id;
-    List<String> list = new ArrayList<>();
+    ArrayList<String> list = new ArrayList<>();
     SimpleDateFormat sdf;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,10 @@ public class Recent extends AppCompatActivity {
         listView=(ListView)findViewById(R.id.recent);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
         date = sdf.format(new Date());
+
+
+
+
 
         SessionManagement sessionManagement = new SessionManagement(this);
         child_id =  sessionManagement.getSessionChild();
@@ -43,6 +52,7 @@ public class Recent extends AppCompatActivity {
         display(list);
     }
 
+
     void recentDiaper ()
     {
         String changeTime,status;
@@ -56,7 +66,7 @@ public class Recent extends AppCompatActivity {
             do {
                 changeTime = cursor.getString(0);
                 status = cursor.getString(2);
-                list.add(changeTime +" "+ status);
+                list.add("Time:"+ changeTime +"Diaper Status"+ status);
                 display(list);
             }while (cursor.moveToNext());
         }
