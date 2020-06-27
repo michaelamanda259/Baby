@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight=".2"
-            android:background="#F37335"
+            android:background="#ACBB78"
             android:contentDescription="@string/back_button"
             android:src="@drawable/ic_arrow_back" />
 
@@ -52,9 +52,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/bg_color"
+            android:background="@drawable/bg_round"
             android:padding="10dp"
             android:text="@string/nursing_activity" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="10dp"
+            android:background="#ACBB78" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -283,7 +289,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:background="@color/yellow"
+                android:background="@drawable/bg_round"
                 android:onClick="resetTotal"
                 android:text="@string/reset" />
 
