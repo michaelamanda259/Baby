@@ -14,6 +14,7 @@ import android.widget.Chronometer;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -23,7 +24,8 @@ import java.util.Locale;
 
 public class PumpingActivity extends AppCompatActivity {
     //Amount
-    EditText editTextLeft,editTextRight,editTextTotal;
+    EditText editTextLeft,editTextRight;
+    TextView editTextTotal;
     ImageButton buttonBack,buttonSubmit;
 
     TimePickerDialog timePickerDialog;

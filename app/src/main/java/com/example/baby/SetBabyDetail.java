@@ -53,7 +53,7 @@ public class SetBabyDetail extends AppCompatActivity {
         DOB = findViewById(R.id.etAge);
         gender = findViewById(R.id.rg_gender);
         bloodgroup = findViewById(R.id.et_BloodGroup);
-        radio=findViewById(R.id.radiotext);
+//        radio=findViewById(R.id.radiotext);
         confirm = findViewById(R.id.confirm_button);
 
         DOB.getEditText().setText(getCurrentDate());

@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -22,7 +23,8 @@ import java.util.Locale;
 
 public class SleepActivity extends AppCompatActivity {
 
-    EditText etTimeStart,etTimeEnd,etTimeTotal,editTextDate,editTextTime;
+    EditText etTimeStart,etTimeEnd,editTextDate,editTextTime;
+    TextView etTimeTotal;
     TimePickerDialog timePickerDialog;
     ImageButton buttonBack,buttonSubmit;
     DatabaseHelper databaseHelper;
