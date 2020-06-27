@@ -10,19 +10,22 @@
     <ImageView
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:src="@drawable/splashlogo" />
+        android:src="@drawable/splashlogo"
+        android:contentDescription="@string/splah_logo" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Baby Care"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:text="@string/baby_care"
         android:textSize="24sp"
          />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Baby's Activity Tracker"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:text="@string/baby_s_activity_tracker"
         android:textSize="14sp" />
 
 

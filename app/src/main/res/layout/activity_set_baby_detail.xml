@@ -1,161 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/bg_color"
+    android:orientation="vertical"
     tools:context=".SetBabyDetail">
-
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:padding="5dp"
-      android:orientation="horizontal">
-
-    <ImageButton
-        android:id="@+id/cancel_button"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight=".2"
-        android:background="#FF9E80"
-        android:src="@drawable/ic_arrow_back" />
-
-    <ImageButton
-        android:id="@+id/confirm_button"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_gravity="right"
-        android:layout_weight="1"
-        android:background="#CCFF90"
-        android:onClick="registerChild"
-        android:padding="20dp"
-        android:src="@drawable/ic_done" />
-  </LinearLayout>
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      android:background="@drawable/fragment_bg"
-      android:layout_margin="10dp"
-      android:padding="20dp">
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:src="@drawable/splashlogo"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:padding="5dp">
 
-      <com.google.android.material.textfield.TextInputLayout
-          android:id="@+id/etName"
-          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="Baby's Full Name">
-
-
-        <com.google.android.material.textfield.TextInputEditText
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:transitionName="tan_text1" />
-
-      </com.google.android.material.textfield.TextInputLayout>
-
-
-
-      <com.google.android.material.textfield.TextInputLayout
-          android:id="@+id/etAge"
-          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="Age">
-
-
-        <com.google.android.material.textfield.TextInputEditText
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number" />
-
-      </com.google.android.material.textfield.TextInputLayout>
-
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:padding="10dp"
-          android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/radiotext2"
-            android:layout_width="79dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Gender"
-            android:textSize="20dp" />
-
-        <RadioGroup
-            android:id="@+id/rg_gender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-          <androidx.appcompat.widget.AppCompatRadioButton
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="Male" />
-
-          <androidx.appcompat.widget.AppCompatRadioButton
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Female" />
-
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/radiotext"
+        <ImageButton
+            android:id="@+id/cancel_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textSize="20dp"
-            android:visibility="invisible" />
+            android:layout_height="match_parent"
+            android:layout_weight=".2"
+            android:background="#FF9E80"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="@string/back_button" />
 
-      </LinearLayout>
-
-
-      <com.google.android.material.textfield.TextInputLayout
-          android:id="@+id/et_BloodGroup"
-          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="Blood Group">
-
-
-        <com.google.android.material.textfield.TextInputEditText
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:transitionName="tan_phone" />
-
-      </com.google.android.material.textfield.TextInputLayout>
-
-
-
-
-
+        <ImageButton
+            android:id="@+id/confirm_button"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="#CCFF90"
+            android:onClick="registerChild"
+            android:padding="20dp"
+            android:src="@drawable/ic_done"
+            android:contentDescription="@string/submit_button" />
     </LinearLayout>
 
-  </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/fragment_bg"
+        android:orientation="vertical"
+        android:padding="20dp">
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:src="@drawable/splashlogo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/baby_s_full_name">
+
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:transitionName="tan_text1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etAge"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/date_of_birth">
+
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/radiotext2"
+                    android:layout_width="79dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/gender"
+                    android:textSize="20sp" />
+
+                <RadioGroup
+                    android:id="@+id/rg_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/male" />
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/female" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_BloodGroup"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/blood_group">
+
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:transitionName="tan_phone" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 
 </LinearLayout>

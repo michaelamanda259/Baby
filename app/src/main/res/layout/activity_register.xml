@@ -9,30 +9,39 @@
     android:padding="20dp"
     tools:context=".RegisterActivity">
 
-
-    <ImageView
-        android:id="@+id/logo_image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="-35dp"
-        android:src="@drawable/splashlogo"
-        android:transitionName="logo_image" />
-
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-20dp"
-        android:fontFamily="@font/coiny"
-        android:text="Welcome"
-        android:textSize="40sp"
-        android:transitionName="logo_text" />
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/logo_image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/splashlogo"
+            android:transitionName="logo_image"
+            android:contentDescription="@string/splah_logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-20dp"
+            android:fontFamily="@font/coiny"
+            android:text="@string/welcome"
+            android:textSize="40sp"
+            android:layout_gravity="bottom"
+            android:transitionName="logo_text" />
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/cairo_semibold"
-        android:text="SignUp to start your new Routine"
+        android:text="@string/signup_to_start_your_new_routine"
         android:textSize="18sp"
+        android:layout_gravity="center"
         android:transitionName="logo_text2" />
 
     <LinearLayout
@@ -46,7 +55,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Full Name">
+            android:hint="@string/full_name">
 
 
             <com.google.android.material.textfield.TextInputEditText
@@ -71,7 +80,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="UserName"
+                android:hint="@string/username"
                 android:inputType="text"
                 android:transitionName="tan_text2" />
 
@@ -83,7 +92,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email">
+            android:hint="@string/email">
 
 
             <com.google.android.material.textfield.TextInputEditText
@@ -99,7 +108,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number">
+            android:hint="@string/phone_number">
 
 
             <com.google.android.material.textfield.TextInputEditText
@@ -116,7 +125,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="@string/password"
             app:passwordToggleEnabled="true">
 
 
@@ -136,8 +145,8 @@
         android:id="@+id/btReg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/cardview_dark_background"
-        android:text="GO"
+        android:background="@color/common_google_signin_btn_text_light_pressed"
+        android:text="@string/go"
         android:textColor="@color/yellow"
         android:transitionName="tan_go"
         android:onClick="registerUser" />
@@ -146,8 +155,9 @@
         android:id="@+id/btLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/yellow"
-        android:text="Already have account? Login"
+        android:background="#00000000"
+        android:textColor="#000"
+        android:text="@string/already_have_account_login"
         android:transitionName="tan_signup" />
 
 </LinearLayout>

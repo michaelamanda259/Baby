@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/bg_color"
+    android:orientation="vertical"
     tools:context=".MedicationActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <ImageButton
             android:id="@+id/cancel_button"
@@ -20,6 +19,7 @@
             android:layout_height="match_parent"
             android:layout_weight=".2"
             android:background="#FF9E80"
+            android:contentDescription="@string/back_button"
             android:src="@drawable/ic_arrow_back" />
 
         <ImageButton
@@ -29,19 +29,31 @@
             android:layout_gravity="right"
             android:layout_weight="1"
             android:background="#CCFF90"
+            android:contentDescription="@string/submit_button"
             android:onClick="saveData"
             android:padding="20dp"
-            android:src="@drawable/ic_done" />
+            android:src="@drawable/ic_done"
+            tools:ignore="RtlHardcoded" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/fragment_bg"
         android:layout_margin="10dp"
+        android:background="@drawable/fragment_bg"
+        android:gravity="top"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:gravity="top">
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/tv_medication"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_color"
+            android:padding="10dp"
+            android:text="@string/medication_activity" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,31 +61,41 @@
             android:orientation="horizontal">
 
             <TextView
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight=".1"
-                android:text="Date:"/>
+                android:text="@string/date" />
 
             <EditText
                 android:id="@+id/et_date"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:importantForAutofill="no"
+                android:inputType="date"
+                tools:ignore="LabelFor" />
+
             <TextView
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight=".1"
-                android:text="Time:"/>
+                android:text="@string/time" />
 
             <EditText
                 android:id="@+id/et_time"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:hint="Choose the time"
                 android:focusable="false"
+                android:hint="@string/choose_the_time"
+                android:importantForAutofill="no"
+                android:inputType="time"
                 android:onClick="chooseTime"
-                android:padding="10dp"/>
+                android:padding="10dp" />
 
         </LinearLayout>
 
@@ -88,43 +110,51 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
+
             <TextView
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:textSize="20dp"
-                android:text="Name of the Medicine:"/>
+                android:text="@string/name_of_the_medicine"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/et_nameofM"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Write here" />
+                android:hint="@string/write_here"
+                android:inputType="text"
+                tools:ignore="Autofill" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginTop="20dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/et_quantityofM"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Quantity"
+                android:hint="@string/quantity"
                 android:inputType="number"
-                android:padding="10dp" />
+                android:padding="10dp"
+                tools:ignore="Autofill" />
 
             <TextView
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
-                android:text="ml/g"
-                android:textSize="20dp" />
+                android:text="@string/ml_g"
+                android:textSize="20sp" />
         </LinearLayout>
 
 

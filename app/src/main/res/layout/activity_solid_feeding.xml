@@ -1,145 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/bg_color"
+    android:orientation="vertical"
     tools:context=".SolidFeedingActivity">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <ImageButton
+            android:id="@+id/cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight=".2"
+            android:background="#FF9E80"
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="@string/back_button" />
+
+        <ImageButton
+            android:id="@+id/confirm_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#CCFF90"
+            android:onClick="saveData"
+            android:padding="20dp"
+            android:src="@drawable/ic_done"
+            android:contentDescription="@string/submit_button" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/fragment_bg"
+        android:gravity="top"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/tv_medication"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_color"
+            android:padding="10dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:text="@string/solid_feeding_activity"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/cancel_button"
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight=".2"
-                android:background="#FF9E80"
-                android:src="@drawable/ic_arrow_back" />
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_weight=".1"
+                android:text="@string/date" />
 
-            <ImageButton
-                android:id="@+id/confirm_button"
+            <EditText
+                android:id="@+id/et_date"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="right"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_weight="1"
-                android:background="#CCFF90"
-                android:onClick="saveData"
-                android:padding="20dp"
-                android:src="@drawable/ic_done" />
+                android:importantForAutofill="no"
+                android:inputType="date"
+                tools:ignore="LabelFor" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_weight=".1"
+                android:text="@string/time" />
+
+            <EditText
+                android:id="@+id/et_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:focusable="false"
+                android:hint="@string/choose_the_time"
+                android:onClick="chooseTime"
+                android:padding="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:importantForAutofill="no"
+                android:inputType="time" />
+
+        </LinearLayout>
+
+        <!--  <EditText
+              android:id="@+id/et_time"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="20dp"
+              android:hint="Choose the time"
+              android:padding="10dp"/>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/what_does_the_food_contains"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="@string/write_here"
+                android:inputType="textMultiLine"
+                android:importantForAutofill="no" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/fragment_bg"
-            android:layout_margin="10dp"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:gravity="top">
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_measure1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="@string/amount"
+                android:inputType="number"
+                android:padding="10dp"
+                android:importantForAutofill="no" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Solid Feeding"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".1"
-                    android:text="Date:"/>
-
-                <EditText
-                    android:id="@+id/et_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".1"
-                    android:text="Time:"/>
-
-                <EditText
-                    android:id="@+id/et_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:hint="Choose the time"
-                    android:focusable="false"
-                    android:onClick="chooseTime"
-                    android:padding="10dp"/>
-
-            </LinearLayout>
-
-          <!--  <EditText
-                android:id="@+id/et_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="Choose the time"
-                android:padding="10dp"/>-->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:textSize="20dp"
-                    android:text="What does the food Contains?"/>
-
-                <EditText
-                    android:id="@+id/et_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Write here" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/et_measure1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Amount"
-                    android:inputType="number"
-                    android:padding="10dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="bottom"
-                    android:textSize="20dp"
-                    android:text="g"/>
-            </LinearLayout>
-
-
-
-
-
-
-
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:text="@string/g"
+                android:textSize="20sp" />
+        </LinearLayout>
 
 
     </LinearLayout>

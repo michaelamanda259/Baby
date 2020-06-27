@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#FDD835">
+    android:background="@drawable/bg_color">
 
 
     <ImageView
@@ -20,13 +20,14 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/splashlogo" />
+        app:srcCompat="@drawable/splashlogo"
+        android:contentDescription="@string/splah_logo" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Baby Care"
+        android:text="@string/baby_care"
         android:transitionName="logo_text"
         android:textAlignment="center"
         android:textSize="30sp"
@@ -41,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="Baby's Activity Tracker App"
+        android:text="@string/baby_s_activity_tracker_app"
         android:textAlignment="center"
         app:fontFamily="serif"
         android:textSize="15sp"

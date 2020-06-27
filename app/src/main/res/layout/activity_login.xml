@@ -13,6 +13,7 @@
         android:id="@+id/logo_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:contentDescription="@string/splah_logo"
         android:transitionName="logo_image"
         app:srcCompat="@drawable/splashlogo" />
 
@@ -20,8 +21,8 @@
         android:id="@+id/logo_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hey, Welcome Back"
-        android:textSize="30dp"
+        android:text="@string/hey_welcome_back"
+        android:textSize="30sp"
         android:transitionName="logo_text"
         app:fontFamily="@font/coiny" />
 
@@ -29,7 +30,7 @@
         android:id="@+id/tv_sign_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign in to Continue"
+        android:text="@string/sign_in_to_continue"
         android:textSize="20sp"
         android:transitionName="logo_text2"
         app:fontFamily="sans-serif-condensed-light" />
@@ -46,7 +47,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username">
+            android:hint="@string/username">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -60,7 +61,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="@string/password"
             android:transitionName="tan_text2"
             app:passwordToggleEnabled="true">
 
@@ -75,17 +76,17 @@
             android:id="@+id/cb_remember"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Remember Me"/>
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_margin="5dp"
-            android:background="#00000000"
-            android:elevation="0dp"
-            android:onClick="forgetPassword"
-            android:text="Forget Password?"
-            android:transitionName="tan_forgetpass" />
+            android:text="@string/remember_me" />
+        <!-- <Button
+             android:layout_width="200dp"
+             android:layout_height="wrap_content"
+             android:layout_gravity="right"
+             android:layout_margin="5dp"
+             android:background="#00000000"
+             android:elevation="0dp"
+             android:onClick="forgetPassword"
+             android:text="Forget Password?"
+             android:transitionName="tan_forgetpass" />-->
 
         <Button
             android:id="@+id/login_btn"
@@ -96,7 +97,7 @@
 
             android:background="#000"
             android:onClick="loginUser"
-            android:text="GO"
+            android:text="@string/go"
             android:textColor="#fff"
             android:transitionName="tan_go" />
 
@@ -107,9 +108,10 @@
             android:layout_gravity="right"
             android:layout_margin="5dp"
             android:background="#00000000"
-            android:text="New User? SIGN UP"
+            android:text="@string/new_user_sign_up"
             android:textColor="#000"
-            android:transitionName="tan_signup" />
+            android:transitionName="tan_signup"
+            tools:ignore="RtlHardcoded" />
 
     </LinearLayout>
 

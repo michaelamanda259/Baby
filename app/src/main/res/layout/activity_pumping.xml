@@ -11,8 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <ImageButton
             android:id="@+id/cancel_button"
@@ -20,15 +20,16 @@
             android:layout_height="match_parent"
             android:layout_weight=".2"
             android:background="#FF9E80"
+            android:contentDescription="@string/back_button"
             android:src="@drawable/ic_arrow_back" />
 
         <ImageButton
             android:id="@+id/confirm_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="right"
             android:layout_weight="1"
             android:background="#CCFF90"
+            android:contentDescription="@string/submit_button"
             android:onClick="saveData"
             android:padding="20dp"
             android:src="@drawable/ic_done" />
@@ -38,13 +39,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        android:padding="5dp"
         android:background="@drawable/fragment_bg"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="5dp">
+
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/tv_pumping"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Breast Feeding"/>
+            android:layout_gravity="center"
+            android:background="@drawable/bg_color"
+            android:padding="10dp"
+            android:text="@string/pumpimg_activity" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,78 +59,92 @@
             android:orientation="horizontal">
 
             <TextView
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight=".1"
-                android:text="Date:"/>
+                android:text="@string/date" />
 
             <EditText
                 android:id="@+id/et_date"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:importantForAutofill="no"
+                android:inputType="date"
+                tools:ignore="LabelFor" />
+
             <TextView
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight=".1"
-                android:text="Time:"/>
+                android:text="@string/time" />
 
             <EditText
                 android:id="@+id/et_time"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:hint="Choose the time"
                 android:focusable="false"
+                android:hint="@string/choose_the_time"
+                android:importantForAutofill="no"
+                android:inputType="time"
                 android:onClick="chooseTime"
-                android:padding="10dp"/>
+                android:padding="10dp" />
 
         </LinearLayout>
 
         <TextView
+            android:id="@+id/lastUsed_tv"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:gravity="center"
             android:layout_gravity="center"
-            android:textStyle="bold"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/cairo_semibold"
-            android:id="@+id/lastUsed_tv"
-            android:text="Last Used :"
-            android:layout_marginTop="10dp"/>
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="@string/last_used"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:baselineAligned="false"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="180dp"
-                android:orientation="vertical"
-                android:padding="10dp"
-                android:gravity="center"
                 android:layout_gravity="center"
-                android:background="@drawable/bg_round">
+                android:layout_weight="1"
+                android:background="@drawable/bg_round"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dp">
 
                 <TextView
+                    android:id="@+id/left_tv"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/left_tv"
-                    android:text="Left"
-                    app:fontFamily="@font/coiny"
-                    android:textSize="20sp"/>
+                    android:text="@string/left"
+                    android:textSize="20sp"
+                    app:fontFamily="@font/coiny" />
 
                 <Chronometer
+                    android:id="@+id/chronometer_left"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/chronometer_left"
-                    app:fontFamily="@font/coiny"
+                    android:textColor="#AA00FF"
                     android:textSize="25sp"
                     android:textStyle="bold"
-                    android:textColor="#AA00FF"/>
+                    app:fontFamily="@font/coiny" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -131,61 +152,64 @@
                     android:layout_marginTop="10dp">
 
                     <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:id="@+id/left_start_bt"
-                        android:onClick="leftStartChronometer"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/ic_play"/>
-
-                    <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/left_pause_bt"
-                        android:layout_marginLeft="10dp"
-                        android:onClick="leftPauseChronometer"
                         android:background="@android:color/transparent"
-                        android:src="@drawable/ic_pause"/>
+                        android:contentDescription="@string/play"
+                        android:onClick="leftStartChronometer"
+                        android:src="@drawable/ic_play" />
 
                     <ImageButton
+                        android:id="@+id/left_pause_bt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/pause"
+                        android:onClick="leftPauseChronometer"
+                        android:src="@drawable/ic_pause" />
+
+                    <!--<ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/left_stop_bt"
                         android:layout_marginLeft="10dp"
                         android:onClick="leftStopChronometer"
                         android:background="@android:color/transparent"
-                        android:src="@drawable/ic_stop"/>
+                        android:src="@drawable/ic_stop"/>-->
                 </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="180dp"
                 android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
                 android:background="@drawable/bg_round"
                 android:gravity="center"
-                android:layout_marginLeft="10dp"
                 android:orientation="vertical"
                 android:padding="10dp">
 
                 <TextView
+                    android:id="@+id/right_tv"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Right"
-                    android:id="@+id/right_tv"
-                    app:fontFamily="@font/coiny"
-                    android:textSize="20sp"/>
+                    android:text="@string/right"
+                    android:textSize="20sp"
+                    app:fontFamily="@font/coiny" />
 
                 <Chronometer
+                    android:id="@+id/chronometer_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/chronometer_right"
-                    app:fontFamily="@font/coiny"
+                    android:textColor="#AA00FF"
                     android:textSize="25sp"
                     android:textStyle="bold"
-                    android:textColor="#AA00FF"/>
+                    app:fontFamily="@font/coiny" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -193,58 +217,64 @@
                     android:layout_marginTop="10dp">
 
                     <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:id="@+id/right_start_bt"
-                        android:onClick="rightStartChronometer"
-                        android:background="@android:color/transparent"
-                        android:src="@drawable/ic_play"/>
-
-                    <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/right_pause_bt"
-                        android:layout_marginLeft="10dp"
-                        android:onClick="rightPauseChronometer"
                         android:background="@android:color/transparent"
-                        android:src="@drawable/ic_pause"/>
+                        android:contentDescription="@string/play"
+                        android:onClick="rightStartChronometer"
+                        android:src="@drawable/ic_play" />
 
                     <ImageButton
+                        android:id="@+id/right_pause_bt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:background="@android:color/transparent"
+                        android:contentDescription="@string/pause"
+                        android:onClick="rightPauseChronometer"
+                        android:src="@drawable/ic_pause" />
+
+                    <!--<ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/right_stop_bt"
                         android:layout_marginLeft="10dp"
                         android:onClick="rightStopChronometer"
                         android:background="@android:color/transparent"
-                        android:src="@drawable/ic_stop"/>
+                        android:src="@drawable/ic_stop"/>-->
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
         <TextView
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TOTAL"
-            android:gravity="center"
             android:layout_marginTop="10dp"
             android:fontFamily="monospace"
-            android:textSize="25sp"/>
+            android:gravity="center"
+            android:text="@string/total"
+            android:textSize="25sp" />
 
         <Chronometer
             android:id="@+id/chronometer_total"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:gravity="center"
             android:fontFamily="monospace"
-            android:textSize="25sp"/>
+            android:gravity="center"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginTop="20dp"
+            android:baselineAligned="false"
+            android:gravity="center"
             android:orientation="horizontal">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -253,27 +283,32 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="bottom"
-                    android:textSize="20dp"
-                    android:text="Left"/>
+                    android:text="@string/left"
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/et_measure_left"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Amount"
+                    android:hint="@string/amount"
+                    android:importantForAutofill="no"
                     android:inputType="number"
                     android:padding="10dp" />
 
                 <TextView
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="bottom"
-                    android:textSize="20dp"
-                    android:text="ml"/>
+                    android:text="@string/ml"
+                    android:textSize="20sp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -282,144 +317,151 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="bottom"
-                    android:textSize="20dp"
-                    android:text="Right"/>
+                    android:text="@string/right"
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/et_measure_right"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Amount"
+                    android:hint="@string/amount"
+                    android:importantForAutofill="no"
                     android:inputType="number"
                     android:padding="10dp" />
 
                 <TextView
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="bottom"
-                    android:textSize="20dp"
-                    android:text="ml"/>
+                    android:text="@string/ml"
+                    android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
-                android:textSize="20dp"
-                android:text="Total"/>
+                android:text="@string/total"
+                android:textSize="20sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/et_measure_total"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Amount"
-                android:inputType="number"
+                android:hint="@string/amount"
                 android:padding="10dp" />
 
             <TextView
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
-                android:textSize="20dp"
-                android:text="ml"/>
+                android:text="@string/ml"
+                android:textSize="20sp" />
         </LinearLayout>
 
-        <Button
+        <!-- <Button
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="#A7FFEB"
-            android:layout_marginTop="30dp"
-            android:fontFamily="@font/cairo_semibold"
-            android:shadowColor="@color/colorPrimaryDark"
-            android:text="Enter Manually" />
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_gravity="bottom"
+             android:background="#A7FFEB"
+             android:layout_marginTop="30dp"
+             android:fontFamily="@font/cairo_semibold"
+             android:shadowColor="@color/colorPrimaryDark"
+             android:text="Enter Manually" />-->
     </LinearLayout>
 
 
-  <!--  <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+    <!--  <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:gravity="center">
 
-            <Chronometer
-                android:id="@+id/chronometerLeft"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="40dp"/>
+              <Chronometer
+                  android:id="@+id/chronometerLeft"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="40dp"/>
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onClickStartLeft"
-                android:src="@drawable/ic_play"/>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onClickPauseLeft"
-                android:src="@drawable/ic_pause"/>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onClickStopLeft"
-                android:src="@drawable/ic_stop"/>
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <Chronometer
-                android:id="@+id/chronometerRight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="40dp"/>
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onClickStartRight"
-                android:src="@drawable/ic_play"/>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onClickPauseRight"
-                android:src="@drawable/ic_pause"/>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="onClickStopRight"
-                android:src="@drawable/ic_stop"/>
-        </LinearLayout>
+              <ImageButton
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:onClick="onClickStartLeft"
+                  android:src="@drawable/ic_play"/>
+              <ImageButton
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:onClick="onClickPauseLeft"
+                  android:src="@drawable/ic_pause"/>
+              <ImageButton
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:onClick="onClickStopLeft"
+                  android:src="@drawable/ic_stop"/>
+          </LinearLayout>
 
 
 
-    </LinearLayout>
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:gravity="center">
 
-    <Chronometer
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/chronometerTotal"/>-->
+              <Chronometer
+                  android:id="@+id/chronometerRight"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="40dp"/>
+
+              <ImageButton
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:onClick="onClickStartRight"
+                  android:src="@drawable/ic_play"/>
+              <ImageButton
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:onClick="onClickPauseRight"
+                  android:src="@drawable/ic_pause"/>
+              <ImageButton
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:onClick="onClickStopRight"
+                  android:src="@drawable/ic_stop"/>
+          </LinearLayout>
+
+
+
+      </LinearLayout>
+
+      <Chronometer
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/chronometerTotal"/>-->
 
 </LinearLayout>

@@ -1,156 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/fragment_bg"
+    android:orientation="vertical"
     tools:context=".popFeeding">
 
     <LinearLayout
-        android:clipToPadding="false"
-        android:orientation="horizontal"
-        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/breastFeeding_card"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-
             android:layout_width="160dp"
             android:layout_height="190dp"
-            android:layout_margin="10dp">
+
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:background="@drawable/circlebackground"
-                    android:src="@drawable/breastfeeding"
-                    android:padding="10dp"/>
+                    android:contentDescription="@string/nursing_activity"
+                    android:padding="10dp"
+                    android:src="@drawable/breastfeeding" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/coiny"
                     android:layout_marginTop="10dp"
-                    android:text="Breast Feeding"/>
+                    android:fontFamily="@font/coiny"
+                    android:text="@string/nursing" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#EA80FC"
-                    android:layout_margin="10dp"/>
+                    android:layout_margin="10dp"
+                    android:background="#EA80FC" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Record the time of feeding"
                     android:padding="5dp"
-                    android:textColor="@android:color/darker_gray"/>
+                    android:text="@string/record_the_time_of_feeding"
+                    android:textColor="@android:color/darker_gray" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/bottleFeeding_card"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-
             android:layout_width="160dp"
             android:layout_height="190dp"
-            android:layout_margin="10dp">
+
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:background="@drawable/circlebackground2"
-                    android:src="@drawable/feedingbottle"
-                    android:padding="10dp"/>
+                    android:contentDescription="@string/bottle_feeding_activity"
+                    android:padding="10dp"
+                    android:src="@drawable/feedingbottle" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/coiny"
                     android:layout_marginTop="10dp"
-                    android:text="Bottle Feeding"/>
+                    android:fontFamily="@font/coiny"
+                    android:text="@string/bottle_feeding" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#FF8A80"
-                    android:layout_margin="10dp"/>
+                    android:layout_margin="10dp"
+                    android:background="#FF8A80" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="which type of milk are you feeding?"
                     android:padding="5dp"
-                    android:textColor="@android:color/darker_gray"/>
+                    android:text="@string/which_type_of_milk_are_you_feeding"
+                    android:textColor="@android:color/darker_gray" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
+
     <LinearLayout
-        android:clipToPadding="false"
-        android:orientation="horizontal"
-        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/solidFeeding_card"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-
             android:layout_width="160dp"
             android:layout_height="190dp"
-            android:layout_margin="10dp">
+
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:background="@drawable/circlebackground2"
-                    android:src="@drawable/babyplate"
-                    android:padding="10dp"/>
+                    android:contentDescription="@string/solid_feeding_activity"
+                    android:padding="10dp"
+                    android:src="@drawable/babyplate" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/coiny"
                     android:layout_marginTop="10dp"
-                    android:text="Solid Feeding"/>
+                    android:fontFamily="@font/coiny"
+                    android:text="@string/solid_feeding" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#FF8A80"
-                    android:layout_margin="10dp"/>
+                    android:layout_margin="10dp"
+                    android:background="#FF8A80" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="What meal are you feeding?"
                     android:padding="5dp"
-                    android:textColor="@android:color/darker_gray"/>
+                    android:text="@string/what_meal_are_you_feeding"
+                    android:textColor="@android:color/darker_gray" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
