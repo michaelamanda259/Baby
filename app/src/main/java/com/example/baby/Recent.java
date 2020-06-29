@@ -166,7 +166,7 @@ public class Recent extends AppCompatActivity {
 
     void recentMedication() {
         String time, dosage, med_name;
-        cursor = databaseHelper.recentActivity(date, child_id);
+        cursor = databaseHelper.recentActivityMedication(date, child_id);
         if (cursor.getCount() == 0) {
             //nothing
         } else {
