@@ -180,9 +180,13 @@ public class  Dashboard extends AppCompatActivity implements View.OnClickListene
                 menu.findItem(R.id.nav_login).setVisible(true);
                 break;*/
             case R.id.nav_share:
-                Intent in1 = new Intent(Dashboard.this,Recent.class);
+                Intent in1 = new Intent(Dashboard.this,AllActivity.class);
                 startActivity(in1);
                 break;
+
+            case R.id.nav_recent:
+                Intent irec = new Intent(Dashboard.this,Recent.class);
+                startActivity(irec);
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
