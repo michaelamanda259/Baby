@@ -222,7 +222,7 @@ public class Recent extends AppCompatActivity {
         List<String> lI = listArray;
 
         if (lI.isEmpty()) {
-            Toast.makeText(this, " No com.example.baby.activities yet..." + lI, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, " No activities yet..." , Toast.LENGTH_SHORT).show();
         } else {
             final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, lI);
             listView.setAdapter(adapter);
