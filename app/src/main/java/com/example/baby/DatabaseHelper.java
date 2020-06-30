@@ -138,15 +138,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean addDiaper(String date,String time, String status,  int child_id){
         SQLiteDatabase sql = this.getWritableDatabase();
-         ContentValues cv =  new ContentValues();
-         cv.put("change_time",time);
-         cv.put("date",date);
-         cv.put("status",status);
-         cv.put("phone",child_id);
+        ContentValues cv =  new ContentValues();
+        cv.put("change_time",time);
+        cv.put("date",date);
+        cv.put("status",status);
+        cv.put("phone",child_id);
 
-         long insert = sql.insert(DIAPER,null,cv);
-         if (insert == -1) return false;
-         else return true;
+        long insert = sql.insert(DIAPER,null,cv);
+        if (insert == -1) return false;
+        else return true;
     }
 
     public boolean addNote(String date, String time, String note,int phone) {

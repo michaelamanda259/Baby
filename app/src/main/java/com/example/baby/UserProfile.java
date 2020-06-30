@@ -17,8 +17,7 @@ public class UserProfile extends AppCompatActivity {
     String userName , name1, phone, email2;
     DatabaseHelper databaseHelper;
     SessionManagement sm;
-    Cursor cursor;
-    int phone1;
+    Cursor cursor1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,23 +37,28 @@ public class UserProfile extends AppCompatActivity {
 
         String userN;
         userN= sessionManagement.getSession();
-        phone1 = databaseHelper.parentPhone(userN);
-        int Phone = phone1;
+        int phone1 = databaseHelper.parentPhone(userN);
 
 
-        Cursor cursor = databaseHelper.userData( Phone);
-        if (cursor.getCount() == 0 )
+        Toast.makeText(this," "+phone1,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this," "+userN,Toast.LENGTH_SHORT).show();
+
+
+        cursor1 = databaseHelper.userData(phone1);
+
+        if (cursor1.getCount() == 0 )
         {
             Toast.makeText(this,"Error",Toast.LENGTH_SHORT).show();
-
         }
         else {
-            cursor.moveToFirst();
-            userName = cursor.getString(0);
-            name1 = cursor.getString(1);
-            email2 = cursor.getString(2);
-            phone= cursor.getString(3);
+            cursor1.moveToFirst();
+
+            userName = cursor1.getString(0);
+            name1 = cursor1.getString(1);
+            email2 = cursor1.getString(2);
+            phone= cursor1.getString(3);
         }
+
         username.setText(userName);
         fullname.setText(name1);
         name.setText(name1);
@@ -64,8 +68,6 @@ public class UserProfile extends AppCompatActivity {
 
 
     }
-
-
 
     public void backtobhome(View view) {
         Intent intent = new Intent(UserProfile.this,Dashboard.class);
