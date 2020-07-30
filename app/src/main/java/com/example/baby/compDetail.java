@@ -14,76 +14,71 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class admin extends AppCompatActivity {
+public class compDetail extends AppCompatActivity {
+
     private static String text;
     DatabaseHelper databaseHelper;
     Cursor cursor;
     ArrayList<String> list = new ArrayList<>();
     ListView listView;
-    String time;
-    String text1;
-    String text2;
-    String text3;
-    String text4;
-    String a[];
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin);
+        setContentView(R.layout.activity_comp_detail);
 
         databaseHelper = new DatabaseHelper(this);
-        listView = findViewById(R.id.user);
-        viewUsers();
+        listView = findViewById(R.id.detail);
+        Intent intent = getIntent();
+        String t = intent.getStringExtra("text");
+        compDetail(t);
 
 
     }
 
-    void viewUsers()
+    void compDetail(String text)
     {
-        cursor = databaseHelper.viewUsers();
+        String time, text1, text2, text3, text4, text5;
+        cursor = databaseHelper.detail(text);
         if (cursor.getCount() == 0) {
-            //nothing
-        } else {
+            Toast.makeText(compDetail.this,"No children  ",Toast.LENGTH_LONG).show();
+
+        } else if (cursor.getCount() > 0) {
+            Toast.makeText(this, " Child details available " , Toast.LENGTH_SHORT).show();
+
             cursor.moveToFirst();
+            Toast.makeText(this, "Column : " +cursor.getColumnCount(), Toast.LENGTH_SHORT).show();
+
             do {
+
                 text1 = cursor.getString(0);
                 text2 = cursor.getString(1);
                 text3 = cursor.getString(2);
                 text4 = cursor.getString(3);
-                list.add("User:" + text1 + " "+ text2+ " "+ text3+ " "+ text4);
+                text5 = cursor.getString(4);
+
+                list.add(" Name :" + text2 + "  Gender :"+ text3+ "  DOB :"+ text4+"  Blood Group "+text5);
                 display(list);
             } while (cursor.moveToNext());
         }
+        else {
+            Toast.makeText(this, " No details available " , Toast.LENGTH_SHORT).show();
+
+        }
     }
+
 
     void display(List<String> listArray) {
         List<String> lI = listArray;
 
         if (lI.isEmpty()) {
-            Toast.makeText(this, " No activities yet..." , Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, " No details available " , Toast.LENGTH_SHORT).show();
         } else {
             final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, lI);
             listView.setAdapter(adapter);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                    String selectedItem = (String) parent.getItemAtPosition(position);
-                    a = selectedItem.split(" ");
-                    Intent intent = new Intent(admin.this,compDetail.class);
-                    intent.putExtra("text",a[3]);
-                    startActivity(intent);
-                }
-
-
-
-            });
-        }
+                   }
 
     }
-
-
 }

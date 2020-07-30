@@ -383,4 +383,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 sqLiteDatabase.rawQuery("SELECT * FROM Parent ",null);
         return cursor;
     }
+
+    public Cursor detail(String text) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM child WHERE phone = ?",new String[]{String.valueOf(text)});
+
+        return cursor;
+    }
 }
