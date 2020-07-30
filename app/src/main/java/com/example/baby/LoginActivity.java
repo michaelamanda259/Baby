@@ -126,6 +126,7 @@
                     if (username.matches("ERROR")) {
                         Toast.makeText(LoginActivity.this, " AN ERROR OCCURRED... " + sessionManagement, Toast.LENGTH_LONG).show();
                     }
+
                     else
                     {
                         sessionManagement.saveSession(parentModel);
@@ -137,6 +138,10 @@
                     Intent intent = new Intent(LoginActivity.this,Dashboard.class);
                     startActivity(intent);
                 }
+            }
+            else if (userEnteredUsername.matches("admin") && userEnteredPassword.matches("admin")  ){
+                Intent intent = new Intent(LoginActivity.this,admin.class);
+                startActivity(intent);
             }
             else
             {

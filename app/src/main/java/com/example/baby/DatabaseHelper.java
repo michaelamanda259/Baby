@@ -377,4 +377,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public Cursor viewUsers() {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        cursor =
+                sqLiteDatabase.rawQuery("SELECT * FROM Parent ",null);
+        return cursor;
+    }
 }
