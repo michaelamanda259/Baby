@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -15,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class admin extends AppCompatActivity {
-    private static String text;
+    public String selectedItem;
     DatabaseHelper databaseHelper;
     Cursor cursor;
     ArrayList<String> list = new ArrayList<>();
@@ -28,7 +31,6 @@ public class admin extends AppCompatActivity {
     String a[];
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,13 +39,11 @@ public class admin extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(this);
         listView = findViewById(R.id.user);
         viewUsers();
-
-
     }
 
-    void viewUsers()
-    {
+    void viewUsers() {
         cursor = databaseHelper.viewUsers();
+
         if (cursor.getCount() == 0) {
             //nothing
         } else {
@@ -53,7 +53,7 @@ public class admin extends AppCompatActivity {
                 text2 = cursor.getString(1);
                 text3 = cursor.getString(2);
                 text4 = cursor.getString(3);
-                list.add("User:" + text1 + " "+ text2+ " "+ text3+ " "+ text4);
+                list.add("Name " + text1 + " Username " + text2 + " Email " + text3 + " Phone " + text4);
                 display(list);
             } while (cursor.moveToNext());
         }
@@ -63,7 +63,7 @@ public class admin extends AppCompatActivity {
         List<String> lI = listArray;
 
         if (lI.isEmpty()) {
-            Toast.makeText(this, " No activities yet..." , Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, " No activities yet...", Toast.LENGTH_SHORT).show();
         } else {
             final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, lI);
             listView.setAdapter(adapter);
@@ -71,19 +71,21 @@ public class admin extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    String selectedItem = (String) parent.getItemAtPosition(position);
+                    selectedItem = (String) parent.getItemAtPosition(position);
+
                     a = selectedItem.split(" ");
-                    Intent intent = new Intent(admin.this,compDetail.class);
-                    intent.putExtra("text",a[3]);
+
+                    Intent intent = new Intent(admin.this, compDetail.class);
+                    intent.putExtra("text", a[7]);
+                    intent.putExtra("name",a[1]);
                     startActivity(intent);
                 }
-
-
-
             });
-        }
 
+        }
     }
+
+
 
 
 }

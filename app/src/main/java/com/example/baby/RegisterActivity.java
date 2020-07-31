@@ -172,12 +172,17 @@ public class RegisterActivity extends AppCompatActivity {
         SessionManagement sessionManagement = new SessionManagement(this);
 
         boolean success = databaseHelper.addParent(parentModel);
-        Toast.makeText(RegisterActivity.this,"Registered Successfully"+ success, Toast.LENGTH_SHORT).show();
-        if (success )
+        if (success==true )
         {
+            Toast.makeText(RegisterActivity.this,"Registered Successfully", Toast.LENGTH_SHORT).show();
             sessionManagement.saveSession(parentModel);
             Intent intent = new Intent(RegisterActivity.this, SetBabyDetail.class);
             startActivity(intent);
+
+        }
+        else if (success==false)
+        {
+            Toast.makeText(RegisterActivity.this," Existing User .. Login ", Toast.LENGTH_SHORT).show();
 
         }
 

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -16,11 +17,12 @@ import java.util.List;
 
 public class compDetail extends AppCompatActivity {
 
-    private static String text;
     DatabaseHelper databaseHelper;
     Cursor cursor;
     ArrayList<String> list = new ArrayList<>();
     ListView listView;
+    TextView textView;
+    Intent intent;
 
 
 
@@ -28,12 +30,14 @@ public class compDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comp_detail);
+        intent = getIntent();
 
         databaseHelper = new DatabaseHelper(this);
         listView = findViewById(R.id.detail);
-        Intent intent = getIntent();
+        textView =findViewById(R.id.userName);
         String t = intent.getStringExtra("text");
         compDetail(t);
+        textView.setText(intent.getStringExtra("name"));
 
 
     }
@@ -49,7 +53,7 @@ public class compDetail extends AppCompatActivity {
             Toast.makeText(this, " Child details available " , Toast.LENGTH_SHORT).show();
 
             cursor.moveToFirst();
-            Toast.makeText(this, "Column : " +cursor.getColumnCount(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Column : " +cursor.getColumnCount(), Toast.LENGTH_SHORT).show();
 
             do {
 
@@ -59,7 +63,7 @@ public class compDetail extends AppCompatActivity {
                 text4 = cursor.getString(3);
                 text5 = cursor.getString(4);
 
-                list.add(" Name :" + text2 + "  Gender :"+ text3+ "  DOB :"+ text4+"  Blood Group "+text5);
+                list.add("Name :" + text2 + "       Gender :"+ text3+ "\nDOB :"+ text4+"         Blood Group "+text5);
                 display(list);
             } while (cursor.moveToNext());
         }
@@ -80,5 +84,18 @@ public class compDetail extends AppCompatActivity {
             listView.setAdapter(adapter);
                    }
 
+    }
+
+    public void deleteUser(View view)
+    {
+        DatabaseHelper databaseHelper  = new DatabaseHelper(this);
+        boolean success = databaseHelper.deleteuser(intent.getStringExtra("text"));
+        Toast.makeText(this,"Deleted user Successfully..? "+ success, Toast.LENGTH_SHORT).show();
+        if (success )
+        {
+            Intent intent = new Intent(this, admin.class);
+            startActivity(intent);
+
+        }
     }
 }

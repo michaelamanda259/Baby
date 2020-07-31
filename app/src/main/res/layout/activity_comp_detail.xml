@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".Recent">
+    tools:context=".compDetail">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +20,26 @@
             android:src="@drawable/ic_arrow_back"
             android:contentDescription="@string/back_button" />
 
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="deleteUser"
+            android:text="Delete User" />
+
     </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/userName"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="321dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:padding="10dp"
+        android:text=" user's name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <TextView
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -29,7 +48,6 @@
         android:layout_marginBottom="5dp"
         android:padding="10dp"
         android:text="Child Detail " />
-
 
     <ListView
         android:id="@+id/detail"
@@ -40,4 +58,6 @@
 
 
     </ListView>
+
+
 </LinearLayout>

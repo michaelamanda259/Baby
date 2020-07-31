@@ -390,4 +390,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return cursor;
     }
+
+    public boolean deleteuser(String phone) {
+        SQLiteDatabase sql = this.getWritableDatabase();
+        int delete1 = sql.delete("parent","phone = ?",new String[]{String.valueOf(phone)});
+        int delete2 = sql.delete("child","phone = ?",new String[]{String.valueOf(phone)});
+
+/*
+        long insert = sql.insert(PUMPING,null,cv);
+insert == -1
+
+   */
+if (delete1 == -1 && delete2 == -1) return false;
+        else return true;
+
+    }
 }
